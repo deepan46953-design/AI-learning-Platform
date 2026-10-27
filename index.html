@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StatAI Karmayog | Login</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body class="auth-body">
+
+<div class="auth-page">
+
+    <div class="auth-brand">
+
+        <div class="logo-box">
+            📊
+        </div>
+
+        <div>
+            <h1>StatAI</h1>
+            <span>Karmayog</span>
+        </div>
+
+    </div>
+
+
+    <div class="auth-layout">
+
+        <!-- LEFT -->
+        <div class="auth-intro">
+
+            <div class="badge">
+                🇮🇳 Capacity Building Platform
+            </div>
+
+            <h2>
+                Empowering India's
+                <span>Statistical Workforce</span>
+            </h2>
+
+            <p>
+                AI-enabled personalized learning platform
+                designed to identify competency gaps and
+                recommend targeted learning.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <div>
+                        <strong>Competency Gap Detection</strong>
+                        <p>Identify your learning gaps through assessments.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <div>
+                        <strong>AI-Powered Learning</strong>
+                        <p>Get personalized learning recommendations.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <div>
+                        <strong>AI Quiz Generation</strong>
+                        <p>Generate practice quizzes from learning materials.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <div>
+                        <strong>Performance Tracking</strong>
+                        <p>Monitor your competency and learning progress.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN -->
+        <div class="auth-card">
+
+            <div class="card-header">
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Login to continue your learning journey
+                </p>
+
+            </div>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label>
+                        Employee ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="employeeId"
+                        placeholder="Example: EMP0001"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <div class="password-box">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+                <div
+                    id="loginMessage"
+                    class="form-message"
+                ></div>
+
+            </form>
+
+
+            <div class="divider">
+                <span>NEW USER?</span>
+            </div>
+
+
+            <a
+                href="register.html"
+                class="secondary-btn"
+            >
+                Create Employee Account
+            </a>
+
+
+            <div class="demo-login">
+
+                <strong>First time?</strong>
+
+                <p>
+                    Register your profile to receive
+                    a unique Employee ID.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>

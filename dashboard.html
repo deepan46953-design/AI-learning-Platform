@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        StatAI Karmayog | Dashboard
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           AI CHATBOT
+        ===================================================== */
+
+        .ai-chat-launcher {
+
+            position: fixed;
+
+            right: 28px;
+            bottom: 28px;
+
+            width: 62px;
+            height: 62px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            font-size: 26px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 30px
+                rgba(37, 99, 235, .30);
+
+            z-index: 1000;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .ai-chat-launcher:hover {
+
+            transform:
+                translateY(-4px) scale(1.03);
+
+            box-shadow:
+                0 16px 35px
+                rgba(37, 99, 235, .38);
+        }
+
+
+        .ai-chat-launcher::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 11px;
+            height: 11px;
+
+            right: 3px;
+            top: 3px;
+
+            background: #22c55e;
+
+            border:
+                3px solid white;
+
+            border-radius: 50%;
+        }
+
+
+        /* =====================================================
+           CHAT WINDOW
+        ===================================================== */
+
+        .ai-chat-window {
+
+            position: fixed;
+
+            right: 28px;
+            bottom: 105px;
+
+            width: 390px;
+
+            height: 570px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            display: none;
+
+            flex-direction: column;
+
+            border:
+                1px solid #dbe4ef;
+
+            box-shadow:
+                0 25px 70px
+                rgba(15, 39, 66, .20);
+
+            z-index: 999;
+
+            animation:
+                chatOpen .22s ease;
+        }
+
+
+        .ai-chat-window.open {
+
+            display:
+                flex;
+        }
+
+
+        /* =====================================================
+           CHAT HEADER
+        ===================================================== */
+
+        .ai-chat-header {
+
+            padding:
+                17px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #102a43,
+                    #173f63
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .ai-chat-title {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap: 11px;
+        }
+
+
+        .ai-chat-avatar {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(255,255,255,.13);
+
+            font-size: 21px;
+        }
+
+
+        .ai-chat-title strong {
+
+            display: block;
+
+            font-size: 15px;
+        }
+
+
+        .ai-chat-title small {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color:
+                #bfdbfe;
+
+            font-size: 11px;
+        }
+
+
+        .ai-chat-actions {
+
+            display:
+                flex;
+
+            gap: 5px;
+        }
+
+
+        .chat-header-btn {
+
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,.09);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        .chat-header-btn:hover {
+
+            background:
+                rgba(255,255,255,.17);
+        }
+
+
+        /* =====================================================
+           CHAT MESSAGES
+        ===================================================== */
+
+        .ai-chat-messages {
+
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding:
+                18px;
+
+            background:
+                #f7f9fc;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap: 13px;
+        }
+
+
+        .chat-message {
+
+            display:
+                flex;
+
+            max-width:
+                88%;
+        }
+
+
+        .chat-message.user {
+
+            align-self:
+                flex-end;
+        }
+
+
+        .chat-message.assistant {
+
+            align-self:
+                flex-start;
+        }
+
+
+        .chat-bubble {
+
+            padding:
+                11px 14px;
+
+            border-radius:
+                14px;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.55;
+
+            white-space:
+                pre-wrap;
+
+            word-break:
+                break-word;
+        }
+
+
+        .chat-message.user
+        .chat-bubble {
+
+            background:
+                #2563eb;
+
+            color:
+                white;
+
+            border-bottom-right-radius:
+                4px;
+        }
+
+
+        .chat-message.assistant
+        .chat-bubble {
+
+            background:
+                white;
+
+            color:
+                #334155;
+
+            border:
+                1px solid
+                #e2e8f0;
+
+            border-bottom-left-radius:
+                4px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(15,39,66,.04);
+        }
+
+
+        .chat-bubble strong {
+
+            color:
+                #172033;
+        }
+
+
+        .chat-bubble code {
+
+            background:
+                #f1f5f9;
+
+            padding:
+                2px 5px;
+
+            border-radius:
+                4px;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            font-size:
+                12px;
+        }
+
+
+        /* =====================================================
+           QUICK QUESTIONS
+        ===================================================== */
+
+        .chat-quick {
+
+            padding:
+                10px 13px;
+
+            display:
+                flex;
+
+            gap:
+                7px;
+
+            overflow-x:
+                auto;
+
+            background:
+                white;
+
+            border-top:
+                1px solid #e8edf3;
+        }
+
+
+        .quick-btn {
+
+            flex-shrink:
+                0;
+
+            border:
+                1px solid #dbe4ef;
+
+            background:
+                #f8fafc;
+
+            color:
+                #334155;
+
+            border-radius:
+                18px;
+
+            padding:
+                7px 11px;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .quick-btn:hover {
+
+            background:
+                #eff6ff;
+
+            border-color:
+                #93c5fd;
+
+            color:
+                #1d4ed8;
+        }
+
+
+        /* =====================================================
+           CHAT INPUT
+        ===================================================== */
+
+        .ai-chat-input-area {
+
+            padding:
+                12px;
+
+            background:
+                white;
+
+            border-top:
+                1px solid #e2e8f0;
+        }
+
+
+        .ai-chat-form {
+
+            display:
+                flex;
+
+            align-items:
+                flex-end;
+
+            gap:
+                8px;
+        }
+
+
+        .ai-chat-input {
+
+            flex:
+                1;
+
+            resize:
+                none;
+
+            min-height:
+                42px;
+
+            max-height:
+                100px;
+
+            padding:
+                11px 13px;
+
+            border:
+                1px solid #d7e0ea;
+
+            border-radius:
+                11px;
+
+            outline:
+                none;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.4;
+        }
+
+
+        .ai-chat-input:focus {
+
+            border-color:
+                #60a5fa;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37,99,235,.08);
+        }
+
+
+        .ai-send-btn {
+
+            width:
+                43px;
+
+            height:
+                43px;
+
+            flex-shrink:
+                0;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                #2563eb;
+
+            color:
+                white;
+
+            cursor:
+                pointer;
+
+            font-size:
+                17px;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
+
+
+        .ai-send-btn:hover {
+
+            background:
+                #1d4ed8;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .ai-send-btn:disabled {
+
+            opacity:
+                .55;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+        }
+
+
+        .chat-disclaimer {
+
+            margin:
+                7px 2px 0;
+
+            font-size:
+                9px;
+
+            color:
+                #94a3b8;
+
+            text-align:
+                center;
+        }
+
+
+        /* =====================================================
+           TYPING
+        ===================================================== */
+
+        .typing {
+
+            display:
+                flex;
+
+            gap:
+                4px;
+
+            align-items:
+                center;
+
+            height:
+                18px;
+        }
+
+
+        .typing span {
+
+            width:
+                6px;
+
+            height:
+                6px;
+
+            background:
+                #94a3b8;
+
+            border-radius:
+                50%;
+
+            animation:
+                typing .9s infinite;
+        }
+
+
+        .typing span:nth-child(2) {
+
+            animation-delay:
+                .15s;
+        }
+
+
+        .typing span:nth-child(3) {
+
+            animation-delay:
+                .3s;
+        }
+
+
+        /* =====================================================
+           ANIMATIONS
+        ===================================================== */
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+
+                transform:
+                    translateY(0);
+
+                opacity:
+                    .45;
+            }
+
+            30% {
+
+                transform:
+                    translateY(-4px);
+
+                opacity:
+                    1;
+            }
+        }
+
+
+        @keyframes chatOpen {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(12px) scale(.98);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0) scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE CHAT
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .ai-chat-window {
+
+                right:
+                    12px;
+
+                left:
+                    12px;
+
+                bottom:
+                    88px;
+
+                width:
+                    auto;
+
+                height:
+                    min(570px, 72vh);
+
+                border-radius:
+                    17px;
+            }
+
+
+            .ai-chat-launcher {
+
+                right:
+                    18px;
+
+                bottom:
+                    18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-box small">
+                📊
+            </div>
+
+            <div>
+
+                <strong>
+                    StatAI
+                </strong>
+
+                <span>
+                    Karmayog
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="nav-item active"
+            >
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="assessment.html"
+                class="nav-item"
+            >
+                🎯
+                <span>Assessment</span>
+            </a>
+
+
+            <a
+                href="courses.html"
+                class="nav-item"
+            >
+                📚
+                <span>Courses</span>
+            </a>
+
+
+            <a
+                href="materials.html"
+                class="nav-item"
+            >
+                📄
+                <span>Materials</span>
+            </a>
+
+
+            <a
+                href="quiz.html"
+                class="nav-item"
+            >
+                🤖
+                <span>AI Quiz</span>
+            </a>
+
+
+            <a
+                href="results.html"
+                class="nav-item"
+            >
+                📈
+                <span>Results</span>
+            </a>
+
+        </nav>
+
+
+        <button
+            class="logout-btn"
+            id="logoutButton"
+        >
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="top-label">
+                    Learning Dashboard
+                </span>
+
+                <h1>
+
+                    Welcome back,
+
+                    <span id="employeeName">
+                        Employee
+                    </span>
+
+                </h1>
+
+            </div>
+
+
+            <div class="user-chip">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong id="topEmployeeName">
+                        Employee
+                    </strong>
+
+                    <small id="topEmployeeId">
+                        EMP0000
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero-card">
+
+            <div>
+
+                <span class="hero-badge">
+                    🇮🇳 Official Statistical System
+                </span>
+
+                <h2>
+
+                    Build skills.
+
+                    <br>
+
+                    Strengthen capability.
+
+                </h2>
+
+                <p>
+
+                    Complete your competency assessment to
+                    unlock personalized learning recommendations.
+
+                </p>
+
+                <a
+                    href="assessment.html"
+                    class="hero-btn"
+                >
+                    Start Assessment →
+                </a>
+
+            </div>
+
+
+            <div class="hero-graphic">
+                📊
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    🎯
+                </div>
+
+                <div>
+
+                    <span>
+                        Overall Competency
+                    </span>
+
+                    <strong id="overallScore">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    📚
+                </div>
+
+                <div>
+
+                    <span>
+                        Learning Courses
+                    </span>
+
+                    <strong id="courseCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    🤖
+                </div>
+
+                <div>
+
+                    <span>
+                        Quiz Average
+                    </span>
+
+                    <strong id="quizAverage">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    ⏱️
+                </div>
+
+                <div>
+
+                    <span>
+                        Learning Status
+                    </span>
+
+                    <strong>
+                        Active
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DASHBOARD GRID
+        ================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            My Profile
+                        </h2>
+
+                        <p>
+                            Registered professional information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-grid">
+
+
+                    <div>
+
+                        <label>
+                            Employee ID
+                        </label>
+
+                        <strong
+                            id="profileEmployeeId"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Email
+                        </label>
+
+                        <strong
+                            id="profileEmail"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Qualification
+                        </label>
+
+                        <strong
+                            id="profileQualification"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Profession
+                        </label>
+
+                        <strong
+                            id="profileProfession"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Area of Interest
+                        </label>
+
+                        <strong
+                            id="profileInterest"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="profile-full">
+
+                        <label>
+                            Skills
+                        </label>
+
+                        <strong
+                            id="profileSkills"
+                        >
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Competency Overview
+                        </h2>
+
+                        <p>
+                            Your latest assessment performance
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="competencyDashboard">
+
+                    <div class="empty-state">
+
+                        <div>
+                            🎯
+                        </div>
+
+                        <h3>
+                            Assessment Pending
+                        </h3>
+
+                        <p>
+
+                            Complete your competency assessment
+                            to identify your learning gaps.
+
+                        </p>
+
+                        <a
+                            href="assessment.html"
+                            class="small-btn"
+                        >
+                            Start Assessment
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =================================================
+             RECOMMENDATIONS
+        ================================================== -->
+
+        <section class="panel recommendations-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        AI Learning Recommendations
+                    </h2>
+
+                    <p>
+
+                        Personalized recommendations based
+                        on your competency gaps.
+
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="courses.html"
+                    class="outline-btn"
+                >
+                    View Courses
+                </a>
+
+            </div>
+
+
+            <div
+                class="recommendation-grid"
+                id="recommendationGrid"
+            >
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Recommendations coming next
+                    </h3>
+
+                    <p>
+
+                        Complete your assessment to receive
+                        personalized learning recommendations.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     AI CHAT LAUNCHER
+========================================================= -->
+
+<button
+    class="ai-chat-launcher"
+    id="aiChatLauncher"
+    title="Open AI Learning Assistant"
+>
+
+    🤖
+
+</button>
+
+
+<!-- =========================================================
+     AI CHAT WINDOW
+========================================================= -->
+
+<div
+    class="ai-chat-window"
+    id="aiChatWindow"
+>
+
+
+    <!-- HEADER -->
+
+    <div class="ai-chat-header">
+
+
+        <div class="ai-chat-title">
+
+            <div class="ai-chat-avatar">
+                🤖
+            </div>
+
+            <div>
+
+                <strong>
+                    AI Learning Assistant
+                </strong>
+
+                <small>
+                    StatAI Karmayog • Online
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="ai-chat-actions">
+
+            <button
+                class="chat-header-btn"
+                id="clearChatButton"
+                title="Clear conversation"
+            >
+                🗑️
+            </button>
+
+
+            <button
+                class="chat-header-btn"
+                id="closeChatButton"
+                title="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    <div
+        class="ai-chat-messages"
+        id="aiChatMessages"
+    >
+
+        <div class="chat-message assistant">
+
+            <div class="chat-bubble">
+
+                <strong>
+                    Hello! 👋
+                </strong>
+
+                <br><br>
+
+                I'm your StatAI Learning Assistant.
+
+                <br><br>
+
+                You can ask me about
+                <strong>Statistics, Python, Data Analysis,
+                Excel, Data Visualization</strong>
+                or any learning topic.
+
+                <br><br>
+
+                What would you like to learn today?
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK QUESTIONS -->
+
+    <div
+        class="chat-quick"
+        id="chatQuick"
+    >
+
+        <button
+            class="quick-btn"
+            data-question="Explain mean, median and mode in simple terms."
+        >
+            Mean / Median / Mode
+        </button>
+
+
+        <button
+            class="quick-btn"
+            data-question="Teach me Python basics with a simple example."
+        >
+            Python Basics
+        </button>
+
+
+        <button
+            class="quick-btn"
+            data-question="What is standard deviation? Give me a simple example."
+        >
+            Standard Deviation
+        </button>
+
+
+        <button
+            class="quick-btn"
+            data-question="Explain data visualization and when to use different charts."
+        >
+            Data Visualization
+        </button>
+
+    </div>
+
+
+    <!-- INPUT -->
+
+    <div class="ai-chat-input-area">
+
+        <form
+            class="ai-chat-form"
+            id="aiChatForm"
+        >
+
+            <textarea
+                id="aiChatInput"
+                class="ai-chat-input"
+                placeholder="Ask your learning question..."
+                rows="1"
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="ai-send-btn"
+                id="aiSendButton"
+                title="Send"
+            >
+                ➤
+            </button>
+
+        </form>
+
+
+        <div class="chat-disclaimer">
+
+            AI-generated responses may contain mistakes.
+            Verify important information.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+
+/* ============================================================
+   AI CHATBOT
+============================================================ */
+
+
+/* ------------------------------------------------------------
+   ELEMENTS
+------------------------------------------------------------ */
+
+const aiChatLauncher =
+    document.getElementById(
+        "aiChatLauncher"
+    );
+
+const aiChatWindow =
+    document.getElementById(
+        "aiChatWindow"
+    );
+
+const closeChatButton =
+    document.getElementById(
+        "closeChatButton"
+    );
+
+const clearChatButton =
+    document.getElementById(
+        "clearChatButton"
+    );
+
+const aiChatMessages =
+    document.getElementById(
+        "aiChatMessages"
+    );
+
+const aiChatForm =
+    document.getElementById(
+        "aiChatForm"
+    );
+
+const aiChatInput =
+    document.getElementById(
+        "aiChatInput"
+    );
+
+const aiSendButton =
+    document.getElementById(
+        "aiSendButton"
+    );
+
+
+/* ------------------------------------------------------------
+   CONVERSATION
+------------------------------------------------------------ */
+
+let chatHistory = [];
+
+
+/* ------------------------------------------------------------
+   EMPLOYEE
+------------------------------------------------------------ */
+
+function getChatEmployee() {
+
+    const keys = [
+
+        "loggedInEmployee",
+
+        "currentUser",
+
+        "employee",
+
+        "employeeData"
+
+    ];
+
+
+    for (
+        const key of keys
+    ) {
+
+        try {
+
+            const raw =
+                localStorage.getItem(
+                    key
+                );
+
+
+            if (!raw) {
+                continue;
+            }
+
+
+            const user =
+                JSON.parse(
+                    raw
+                );
+
+
+            return {
+
+                id:
+                    String(
+                        user.employeeId ||
+                        user.id ||
+                        user.username ||
+                        user.email ||
+                        "EMP0001"
+                    ),
+
+                name:
+                    String(
+                        user.name ||
+                        user.employeeName ||
+                        user.fullName ||
+                        user.username ||
+                        "Employee"
+                    )
+
+            };
+
+        } catch {
+
+            continue;
+        }
+
+    }
+
+
+    return {
+
+        id:
+            "EMP0001",
+
+        name:
+            "Employee"
+
+    };
+}
+
+
+/* ------------------------------------------------------------
+   OPEN CHAT
+------------------------------------------------------------ */
+
+aiChatLauncher.addEventListener(
+    "click",
+    function () {
+
+        aiChatWindow.classList.add(
+            "open"
+        );
+
+        aiChatInput.focus();
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   CLOSE CHAT
+------------------------------------------------------------ */
+
+closeChatButton.addEventListener(
+    "click",
+    function () {
+
+        aiChatWindow.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   CLEAR CHAT
+------------------------------------------------------------ */
+
+clearChatButton.addEventListener(
+    "click",
+    function () {
+
+        chatHistory = [];
+
+        aiChatMessages.innerHTML = `
+
+            <div class="chat-message assistant">
+
+                <div class="chat-bubble">
+
+                    <strong>
+                        Conversation cleared. 👋
+                    </strong>
+
+                    <br><br>
+
+                    What would you like to learn?
+
+                </div>
+
+            </div>
+
+        `;
+
+        aiChatInput.focus();
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   QUICK QUESTIONS
+------------------------------------------------------------ */
+
+document.querySelectorAll(
+    ".quick-btn"
+).forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const question =
+                    button.dataset.question ||
+                    "";
+
+
+                aiChatInput.value =
+                    question;
+
+
+                aiChatInput.focus();
+
+
+                aiChatInput.style.height =
+                    "auto";
+
+                aiChatInput.style.height =
+                    aiChatInput.scrollHeight +
+                    "px";
+
+            }
+        );
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   TEXTAREA AUTO RESIZE
+------------------------------------------------------------ */
+
+aiChatInput.addEventListener(
+    "input",
+    function () {
+
+        this.style.height =
+            "auto";
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                100
+            ) + "px";
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   ENTER TO SEND
+------------------------------------------------------------ */
+
+aiChatInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            aiChatForm.requestSubmit();
+
+        }
+
+    }
+);
+
+
+/* ------------------------------------------------------------
+   SEND MESSAGE
+------------------------------------------------------------ */
+
+aiChatForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const message =
+            aiChatInput.value.trim();
+
+
+        if (!message) {
+
+            return;
+        }
+
+
+        /*
+           Display user message.
+        */
+
+        addChatMessage(
+            "user",
+            message
+        );
+
+
+        /*
+           Save to conversation history.
+        */
+
+        chatHistory.push({
+
+            role:
+                "user",
+
+            content:
+                message
+
+        });
+
+
+        /*
+           Clear input.
+        */
+
+        aiChatInput.value = "";
+
+        aiChatInput.style.height =
+            "auto";
+
+
+        /*
+           Disable send button.
+        */
+
+        setChatLoading(
+            true
+        );
+
+
+        /*
+           Show typing indicator.
+        */
+
+        const typingId =
+            addTypingIndicator();
+
+
+        try {
+
+            const employee =
+                getChatEmployee();
+
+
+            const response =
+                await fetch(
+                    "http://localhost:3000/api/chat",
+                    {
+
+                        method:
+                            "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                message:
+                                    message,
+
+                                history:
+                                    chatHistory.slice(
+                                        0,
+                                        -1
+                                    ),
+
+                                employee:
+                                    employee
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            removeTypingIndicator(
+                typingId
+            );
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.error ||
+                    "AI request failed."
+                );
+            }
+
+
+            const answer =
+                String(
+                    data.response ||
+                    ""
+                ).trim();
+
+
+            if (!answer) {
+
+                throw new Error(
+                    "AI returned an empty response."
+                );
+            }
+
+
+            /*
+               Display AI response.
+            */
+
+            addChatMessage(
+                "assistant",
+                answer
+            );
+
+
+            /*
+               Save AI response.
+            */
+
+            chatHistory.push({
+
+                role:
+                    "assistant",
+
+                content:
+                    answer
+
+            });
+
+
+            /*
+               Keep history manageable.
+            */
+
+            if (
+                chatHistory.length >
+                14
+            ) {
+
+                chatHistory =
+                    chatHistory.slice(
+                        -14
+                    );
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "AI CHAT ERROR:",
+                error
+            );
+
+
+            removeTypingIndicator(
+                typingId
+            );
+
+
+            addChatMessage(
+                "assistant",
+                "⚠️ Sorry, I couldn't connect to the AI service. Please make sure the StatAI backend is running on port 3000."
+            );
+
+        } finally {
+
+            setChatLoading(
+                false
+            );
+
+            aiChatInput.focus();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   ADD CHAT MESSAGE
+============================================================ */
+
+function addChatMessage(
+    role,
+    text
+) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        `chat-message ${role}`;
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "chat-bubble";
+
+
+    /*
+       Basic safe formatting.
+
+       We do NOT directly insert the AI text
+       as raw HTML.
+    */
+
+    bubble.textContent =
+        text;
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    aiChatMessages.appendChild(
+        wrapper
+    );
+
+
+    scrollChatToBottom();
+}
+
+
+/* ============================================================
+   TYPING INDICATOR
+============================================================ */
+
+let typingCounter = 0;
+
+
+function addTypingIndicator() {
+
+    typingCounter++;
+
+
+    const id =
+        `typing-${typingCounter}`;
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "chat-message assistant";
+
+
+    wrapper.id =
+        id;
+
+
+    wrapper.innerHTML = `
+
+        <div class="chat-bubble">
+
+            <div class="typing">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    aiChatMessages.appendChild(
+        wrapper
+    );
+
+
+    scrollChatToBottom();
+
+
+    return id;
+}
+
+
+/* ============================================================
+   REMOVE TYPING
+============================================================ */
+
+function removeTypingIndicator(
+    id
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.remove();
+    }
+}
+
+
+/* ============================================================
+   LOADING STATE
+============================================================ */
+
+function setChatLoading(
+    loading
+) {
+
+    aiSendButton.disabled =
+        loading;
+
+    aiChatInput.disabled =
+        loading;
+
+
+    if (loading) {
+
+        aiSendButton.textContent =
+            "•••";
+
+    } else {
+
+        aiSendButton.textContent =
+            "➤";
+
+    }
+
+}
+
+
+/* ============================================================
+   SCROLL CHAT
+============================================================ */
+
+function scrollChatToBottom() {
+
+    requestAnimationFrame(
+        () => {
+
+            aiChatMessages.scrollTop =
+                aiChatMessages.scrollHeight;
+
+        }
+    );
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,4861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Course Learning | StatAI Karmayogi</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =====================================================
+   COURSE LEARNING PAGE
+===================================================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --green:#16a34a;
+    --red:#dc2626;
+    --orange:#f59e0b;
+
+    --navy:#071a33;
+
+    --background:#f4f7fb;
+    --white:#ffffff;
+
+    --text:#0f172a;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.learning-page{
+
+    max-width:1500px;
+
+    margin:auto;
+
+    padding:25px;
+
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.learning-topbar{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:20px;
+
+}
+
+
+.learning-title h1{
+
+    margin:0;
+
+    font-size:22px;
+
+    color:var(--text);
+
+}
+
+
+.learning-title p{
+
+    margin:5px 0 0;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.employee-badge{
+
+    background:#eff6ff;
+
+    color:#1d4ed8;
+
+    border-radius:12px;
+
+    padding:9px 14px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.learning-layout{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr;
+
+    gap:20px;
+
+}
+
+
+/* =====================================================
+   MODULE SIDEBAR
+===================================================== */
+
+.module-panel{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    height:max-content;
+
+    position:sticky;
+
+    top:20px;
+
+}
+
+
+.module-panel h3{
+
+    margin:0 0 15px;
+
+    font-size:15px;
+
+}
+
+
+.module-progress{
+
+    background:#f8fafc;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+}
+
+
+.module-progress-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    margin-bottom:7px;
+
+}
+
+
+.module-progress-bar{
+
+    height:7px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+.module-progress-fill{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    transition:width .4s ease;
+
+}
+
+
+.module-item{
+
+    width:100%;
+
+    text-align:left;
+
+    border:1px solid var(--border);
+
+    background:white;
+
+    border-radius:13px;
+
+    padding:12px;
+
+    margin-bottom:9px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+
+}
+
+
+.module-item:hover{
+
+    border-color:#93c5fd;
+
+    transform:translateY(-1px);
+
+}
+
+
+.module-item.active{
+
+    border-color:#2563eb;
+
+    background:#eff6ff;
+
+}
+
+
+.module-item.locked{
+
+    cursor:not-allowed;
+
+    opacity:.55;
+
+}
+
+
+.module-number{
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:9px;
+
+    background:#e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    float:left;
+
+    margin-right:9px;
+
+}
+
+
+.module-item.active .module-number{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+.module-item.completed .module-number{
+
+    background:#16a34a;
+
+    color:white;
+
+}
+
+
+.module-name{
+
+    font-size:11px;
+
+    font-weight:800;
+
+    line-height:1.4;
+
+}
+
+
+.module-status{
+
+    margin-top:5px;
+
+    font-size:9px;
+
+    color:var(--muted);
+
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.learning-content{
+
+    min-width:0;
+
+}
+
+
+/* =====================================================
+   PROGRESS CARD
+===================================================== */
+
+.progress-card{
+
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(59,130,246,.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #071a33,
+            #17457d
+        );
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+
+.progress-card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+.progress-card h2{
+
+    margin:0;
+
+    font-size:20px;
+
+}
+
+
+.progress-card p{
+
+    margin:5px 0 0;
+
+    color:#dbeafe;
+
+    font-size:11px;
+
+}
+
+
+.progress-percent{
+
+    font-size:28px;
+
+    font-weight:900;
+
+}
+
+
+.progress-track{
+
+    height:9px;
+
+    background:rgba(255,255,255,.2);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-top:15px;
+
+}
+
+
+.progress-fill{
+
+    height:100%;
+
+    background:white;
+
+    border-radius:20px;
+
+    transition:width .5s ease;
+
+}
+
+
+/* =====================================================
+   LESSON CARD
+===================================================== */
+
+.lesson-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+.lesson-label{
+
+    color:#2563eb;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+
+.lesson-card h1{
+
+    margin:7px 0;
+
+    font-size:25px;
+
+}
+
+
+.lesson-description{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+.video-card{
+
+    margin-top:20px;
+
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    background:#0f172a;
+
+}
+
+
+.video-wrapper{
+
+    width:100%;
+
+    aspect-ratio:16/9;
+
+    background:#020617;
+
+    position:relative;
+
+}
+
+
+.video-wrapper iframe{
+
+    width:100%;
+
+    height:100%;
+
+    border:0;
+
+}
+
+
+.video-info{
+
+    background:white;
+
+    padding:14px 16px;
+
+}
+
+
+.video-status{
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:#16a34a;
+
+}
+
+
+.video-status.error{
+
+    color:#dc2626;
+
+}
+
+
+.video-note{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-top:5px;
+
+}
+
+
+.video-actions{
+
+    display:flex;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+    margin-top:12px;
+
+}
+
+
+.video-button{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:9px 13px;
+
+    border-radius:9px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+.video-button.secondary{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+
+}
+
+
+/* =====================================================
+   OBJECTIVE
+===================================================== */
+
+.objective-card{
+
+    margin-top:20px;
+
+    background:#eff6ff;
+
+    border:1px solid #bfdbfe;
+
+    border-radius:15px;
+
+    padding:16px;
+
+}
+
+
+.objective-card strong{
+
+    display:block;
+
+    font-size:12px;
+
+    color:#1d4ed8;
+
+    margin-bottom:5px;
+
+}
+
+
+.objective-card span{
+
+    font-size:12px;
+
+    color:#334155;
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   ASSESSMENT
+===================================================== */
+
+.assessment-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+.assessment-card h2{
+
+    margin:0 0 5px;
+
+    font-size:20px;
+
+}
+
+
+.assessment-description{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-bottom:20px;
+
+}
+
+
+.question{
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:17px;
+
+    margin-bottom:14px;
+
+}
+
+
+.question-title{
+
+    font-size:13px;
+
+    font-weight:800;
+
+    line-height:1.5;
+
+    margin-bottom:12px;
+
+}
+
+
+.option{
+
+    display:block;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin-top:7px;
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    transition:.2s ease;
+
+}
+
+
+.option:hover{
+
+    background:#f8fafc;
+
+    border-color:#93c5fd;
+
+}
+
+
+.option input{
+
+    margin-right:8px;
+
+}
+
+
+.assessment-result{
+
+    border-radius:13px;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.assessment-result.pass{
+
+    background:#f0fdf4;
+
+    border:1px solid #bbf7d0;
+
+    color:#166534;
+
+}
+
+
+.assessment-result.fail{
+
+    background:#fef2f2;
+
+    border:1px solid #fecaca;
+
+    color:#991b1b;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.action-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+.btn{
+
+    border:0;
+
+    border-radius:10px;
+
+    padding:11px 16px;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+}
+
+
+.btn-primary{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+.btn-primary:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+.btn-secondary{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+
+}
+
+
+.btn-success{
+
+    background:#16a34a;
+
+    color:white;
+
+}
+
+
+.btn:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+
+/* =====================================================
+   COMPLETION
+===================================================== */
+
+.completion-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:50px 30px;
+
+    text-align:center;
+
+}
+
+
+.completion-icon{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto;
+
+    font-size:35px;
+
+}
+
+
+.completion-card h1{
+
+    margin:18px 0 8px;
+
+}
+
+
+.completion-card p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:13px 17px;
+
+    border-radius:11px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    pointer-events:none;
+
+    transition:.3s ease;
+
+    z-index:9999;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:950px){
+
+    .learning-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .module-panel{
+
+        position:static;
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .learning-page{
+
+        padding:12px;
+
+    }
+
+
+    .learning-topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .lesson-card,
+    .assessment-card{
+
+        padding:17px;
+
+    }
+
+
+    .action-row{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+
+    .action-row .btn{
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-box small">
+            S
+        </div>
+
+        <div>
+
+            <strong>StatAI</strong>
+
+            <span>Karmayogi</span>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a
+            href="dashboard.html"
+            class="nav-item"
+        >
+            <span>📊</span>
+            Dashboard
+        </a>
+
+
+        <a
+            href="assessment.html"
+            class="nav-item"
+        >
+            <span>📝</span>
+            Assessment
+        </a>
+
+
+        <a
+            href="courses.html"
+            class="nav-item active"
+        >
+            <span>🎓</span>
+            Courses
+        </a>
+
+
+        <a
+            href="materials.html"
+            class="nav-item"
+        >
+            <span>📚</span>
+            Materials
+        </a>
+
+
+        <a
+            href="results.html"
+            class="nav-item"
+        >
+            <span>🏆</span>
+            Results
+        </a>
+
+    </nav>
+
+
+    <button
+        class="logout-btn"
+        onclick="logoutUser()"
+    >
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+
+<div class="learning-page">
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<div class="learning-topbar">
+
+    <div class="learning-title">
+
+        <h1 id="courseTitle">
+            Course Learning
+        </h1>
+
+        <p id="courseSubtitle">
+            Complete the assessments to progress
+            through the course.
+        </p>
+
+    </div>
+
+
+    <div
+        class="employee-badge"
+        id="employeeName"
+    >
+        Learner
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LAYOUT
+===================================================== -->
+
+<div class="learning-layout">
+
+
+<!-- =====================================================
+     MODULE PANEL
+===================================================== -->
+
+<aside class="module-panel">
+
+    <h3>
+        Course Modules
+    </h3>
+
+
+    <div class="module-progress">
+
+        <div class="module-progress-top">
+
+            <span>
+                Course Progress
+            </span>
+
+            <span id="sideProgress">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="module-progress-bar">
+
+            <div
+                class="module-progress-fill"
+                id="sideProgressFill"
+                style="width:0%"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <div id="moduleList"></div>
+
+</aside>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<section class="learning-content">
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div class="progress-card">
+
+    <div class="progress-card-top">
+
+        <div>
+
+            <h2>
+                Your Learning Progress
+            </h2>
+
+            <p id="progressText">
+                0 of 6 assessments completed
+            </p>
+
+        </div>
+
+
+        <div
+            class="progress-percent"
+            id="progressPercent"
+        >
+            0%
+        </div>
+
+    </div>
+
+
+    <div class="progress-track">
+
+        <div
+            class="progress-fill"
+            id="progressFill"
+            style="width:0%"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LESSON
+===================================================== -->
+
+<div
+    id="lessonArea"
+>
+
+
+<div class="lesson-card">
+
+    <div class="lesson-label">
+        MODULE
+        <span id="lessonNumber">
+            1
+        </span>
+    </div>
+
+
+    <h1 id="lessonTitle">
+        Introduction to Statistics
+    </h1>
+
+
+    <div
+        class="lesson-description"
+        id="lessonDescription"
+    >
+        Learn the fundamentals of statistics.
+    </div>
+
+
+    <!-- VIDEO -->
+
+    <div class="video-card">
+
+        <div class="video-wrapper">
+
+            <iframe
+                id="videoFrame"
+                src=""
+                title="Course Learning Video"
+                allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share
+                "
+                allowfullscreen
+            ></iframe>
+
+        </div>
+
+
+        <div class="video-info">
+
+            <div
+                class="video-status"
+                id="videoStatus"
+            >
+                Video available. Watching is optional.
+            </div>
+
+
+            <div class="video-note">
+
+                You can watch the video before taking
+                the assessment, or directly take the
+                assessment.
+
+            </div>
+
+
+            <div class="video-actions">
+
+                <a
+                    id="youtubeButton"
+                    class="video-button"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    ▶ Open on YouTube
+                </a>
+
+
+                <button
+                    class="video-button secondary"
+                    type="button"
+                    onclick="reloadVideo()"
+                >
+                    ↻ Reload Video
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- OBJECTIVE -->
+
+    <div class="objective-card">
+
+        <strong>
+            🎯 Learning Objective
+        </strong>
+
+        <span id="lessonObjective">
+            Understand the lesson.
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ASSESSMENT
+===================================================== -->
+
+<div
+    class="assessment-card"
+    id="assessmentSection"
+    style="display:none;"
+>
+
+    <h2>
+        📝 Module Assessment
+    </h2>
+
+
+    <div class="assessment-description">
+
+        Pass this assessment with at least
+        <strong>2 out of 3</strong> correct answers
+        to complete this module.
+
+    </div>
+
+
+    <div id="questionsContainer"></div>
+
+
+    <div
+        id="assessmentResult"
+    ></div>
+
+
+    <div class="action-row">
+
+        <button
+            class="btn btn-secondary"
+            id="retryButton"
+            onclick="retryAssessment()"
+            style="display:none;"
+        >
+            🔄 Retry Assessment
+        </button>
+
+
+        <button
+            class="btn btn-primary"
+            id="submitButton"
+            onclick="submitAssessment()"
+        >
+            Submit Assessment
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<div class="action-row">
+
+    <button
+        class="btn btn-secondary"
+        id="previousButton"
+        onclick="previousLesson()"
+    >
+        ← Previous
+    </button>
+
+
+    <button
+        class="btn btn-primary"
+        id="nextButton"
+        onclick="nextLesson()"
+    >
+        Go to Assessment →
+    </button>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     COMPLETION
+===================================================== -->
+
+<div
+    id="completionArea"
+    style="display:none;"
+>
+
+    <div class="completion-card">
+
+        <div class="completion-icon">
+            ✓
+        </div>
+
+
+        <h1>
+            Course Completed!
+        </h1>
+
+
+        <p id="completionText">
+            You have successfully completed
+            all course assessments.
+        </p>
+
+
+        <div
+            style="margin-top:20px;"
+        >
+
+            <a
+                href="results.html"
+                class="action-btn"
+            >
+                View Results →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Saved
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   EMPLOYEE
+===================================================== */
+
+function getEmployee(){
+
+    const keys = [
+        "loggedInEmployee",
+        "currentUser",
+        "employee",
+        "employeeData"
+    ];
+
+
+    for(const key of keys){
+
+        try{
+
+            const raw =
+                localStorage.getItem(key);
+
+
+            if(!raw)
+                continue;
+
+
+            const user =
+                JSON.parse(raw);
+
+
+            return {
+
+                id:String(
+                    user.employeeId ||
+                    user.id ||
+                    user.username ||
+                    user.email ||
+                    "EMP0001"
+                ),
+
+                name:String(
+                    user.name ||
+                    user.employeeName ||
+                    user.fullName ||
+                    user.username ||
+                    "Employee"
+                )
+
+            };
+
+        }
+        catch(error){}
+
+    }
+
+
+    return {
+
+        id:"EMP0001",
+
+        name:"Employee"
+
+    };
+
+}
+
+
+const employee =
+    getEmployee();
+
+
+/* =====================================================
+   URL
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+/*
+ * Always normalize topic.
+ *
+ * This is important because:
+ *
+ * Statistics
+ * statistics
+ *
+ * must refer to the same localStorage record.
+ */
+
+const topic =
+    (
+        params.get("topic") ||
+        "statistics"
+    ).toLowerCase();
+
+
+/* =====================================================
+   COURSE DATA
+===================================================== */
+
+const courses = {
+
+
+statistics:{
+
+    title:
+        "Statistical Methods",
+
+    subtitle:
+        "Build practical statistics skills for workplace decision making.",
+
+    lessons:[
+
+        {
+
+            title:
+                "Introduction to Statistics",
+
+            description:
+                "Understand the role of statistics in analysing information and making evidence-based decisions.",
+
+            objective:
+                "Explain what statistics is and how statistical thinking supports workplace decision making.",
+
+            video:
+                "aMkq3tRBU7U",
+
+            questions:[
+
+                {
+
+                    question:
+                        "What is the main purpose of statistics?",
+
+                    options:[
+
+                        "To collect, analyse and interpret data",
+
+                        "To avoid using data",
+
+                        "To replace every business decision"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "What helps organisations make evidence-based decisions?",
+
+                    options:[
+
+                        "Data and evidence",
+
+                        "Guessing",
+
+                        "Random selection"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "Which is an example of statistical thinking?",
+
+                    options:[
+
+                        "Analysing employee performance data",
+
+                        "Ignoring employee data",
+
+                        "Choosing results randomly"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        },
+
+
+        {
+
+            title:
+                "Types of Data",
+
+            description:
+                "Learn the difference between qualitative and quantitative data.",
+
+            objective:
+                "Identify common types of data used in workplace analysis.",
+
+            video:
+                "aMkq3tRBU7U",
+
+            questions:[
+
+                {
+
+                    question:
+                        "Which is quantitative data?",
+
+                    options:[
+
+                        "Employee salary",
+
+                        "Department name",
+
+                        "Employee category"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "Data represented using categories is generally called:",
+
+                    options:[
+
+                        "Qualitative data",
+
+                        "Quantitative data",
+
+                        "Numerical calculation"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "Employee age is an example of:",
+
+                    options:[
+
+                        "Quantitative data",
+
+                        "Qualitative data",
+
+                        "Text category"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        },
+
+
+        {
+
+            title:
+                "Measures of Central Tendency",
+
+            description:
+                "Learn mean, median and mode and when each measure is useful.",
+
+            objective:
+                "Calculate and interpret basic measures of central tendency.",
+
+            video:
+                "aMkq3tRBU7U",
+
+            questions:[
+
+                {
+
+                    question:
+                        "How is the mean calculated?",
+
+                    options:[
+
+                        "Add all values and divide by the number of values",
+
+                        "Choose the largest value",
+
+                        "Choose the smallest value"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "What is the median?",
+
+                    options:[
+
+                        "The middle value when data is ordered",
+
+                        "The largest value",
+
+                        "The difference between two values"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "What is the mode?",
+
+                    options:[
+
+                        "The most frequently occurring value",
+
+                        "The average value",
+
+                        "The smallest value"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        },
+
+
+        {
+
+            title:
+                "Measures of Dispersion",
+
+            description:
+                "Understand how statistical measures describe the spread and variability of data.",
+
+            objective:
+                "Explain range and standard deviation as measures of data variability.",
+
+            video:
+                "lh3t60hjII8",
+
+            questions:[
+
+                {
+
+                    question:
+                        "What does dispersion describe?",
+
+                    options:[
+
+                        "The spread of data",
+
+                        "Only the average",
+
+                        "Only the most frequent value"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "How is range calculated?",
+
+                    options:[
+
+                        "Maximum value minus minimum value",
+
+                        "Mean divided by median",
+
+                        "Minimum value plus maximum value"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "Standard deviation is commonly used to measure:",
+
+                    options:[
+
+                        "Variability",
+
+                        "Only the maximum",
+
+                        "Only the minimum"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        },
+
+
+        {
+
+            title:
+                "Probability Basics",
+
+            description:
+                "Understand probability and how it represents the likelihood of events.",
+
+            objective:
+                "Explain basic probability concepts and interpret probability values.",
+
+            video:
+                "aMkq3tRBU7U",
+
+            questions:[
+
+                {
+
+                    question:
+                        "Probability represents:",
+
+                    options:[
+
+                        "The likelihood of an event",
+
+                        "The average of data",
+
+                        "The largest value"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "For basic probability, the value generally ranges from:",
+
+                    options:[
+
+                        "0 to 1",
+
+                        "1 to 100 only",
+
+                        "-100 to 100"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "A probability of 0 means the event is:",
+
+                    options:[
+
+                        "Impossible",
+
+                        "Certain",
+
+                        "Very likely"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        },
+
+
+        {
+
+            title:
+                "Statistical Decision Making",
+
+            description:
+                "Apply statistical thinking to workplace decisions and business problems.",
+
+            objective:
+                "Use relevant and reliable evidence to support data-driven decisions.",
+
+            video:
+                "aMkq3tRBU7U",
+
+            questions:[
+
+                {
+
+                    question:
+                        "A data-driven decision is based mainly on:",
+
+                    options:[
+
+                        "Evidence from data",
+
+                        "Guesswork",
+
+                        "Random selection"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "Why do managers use statistics?",
+
+                    options:[
+
+                        "To identify patterns and support decisions",
+
+                        "To avoid analysing information",
+
+                        "To remove all data"
+
+                    ],
+
+                    answer:0
+
+                },
+
+                {
+
+                    question:
+                        "A good statistical decision should use:",
+
+                    options:[
+
+                        "Relevant and reliable evidence",
+
+                        "Random information",
+
+                        "Unsupported assumptions"
+
+                    ],
+
+                    answer:0
+
+                }
+
+            ]
+
+        }
+
+    ]
+
+},
+
+
+/* =====================================================
+   OTHER COURSES
+===================================================== */
+
+dataanalysis:{
+
+    title:
+        "Data Analysis Fundamentals",
+
+    subtitle:
+        "Learn the foundations of analysing structured data.",
+
+    lessons:[
+        {
+            title:"Introduction to Data Analysis",
+            description:"Understand the purpose and stages of data analysis.",
+            objective:"Explain why data analysis is useful for decision making.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"What is the purpose of data analysis?",
+                    options:[
+                        "To extract useful information from data",
+                        "To delete all data",
+                        "To avoid decisions"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Data analysis helps organisations:",
+                    options:[
+                        "Make informed decisions",
+                        "Ignore evidence",
+                        "Remove information"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A dataset contains:",
+                    options:[
+                        "Collected observations or information",
+                        "Only decisions",
+                        "Only opinions"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Data Collection",
+            description:"Learn how data is collected for analysis.",
+            objective:"Identify reliable sources and methods of collecting data.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Data collection means:",
+                    options:[
+                        "Gathering information for analysis",
+                        "Deleting information",
+                        "Formatting a presentation"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A survey can be used to:",
+                    options:[
+                        "Collect data",
+                        "Delete data",
+                        "Encrypt every file"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Reliable data should be:",
+                    options:[
+                        "Relevant and accurate",
+                        "Random",
+                        "Incomplete"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Data Cleaning",
+            description:"Understand how errors and inconsistencies are handled.",
+            objective:"Identify common data quality problems.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Data cleaning is used to:",
+                    options:[
+                        "Correct errors and inconsistencies",
+                        "Create random values",
+                        "Remove all useful records"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A missing value is:",
+                    options:[
+                        "An unavailable data value",
+                        "A duplicate value",
+                        "A calculated average"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Duplicate records are:",
+                    options:[
+                        "Repeated records",
+                        "New categories",
+                        "Statistical averages"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Exploratory Data Analysis",
+            description:"Explore patterns, trends and relationships in data.",
+            objective:"Use exploratory techniques to understand datasets.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"EDA stands for:",
+                    options:[
+                        "Exploratory Data Analysis",
+                        "Electronic Data Application",
+                        "External Data Algorithm"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"EDA can help identify:",
+                    options:[
+                        "Patterns and outliers",
+                        "Passwords",
+                        "Operating systems"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Charts are useful in EDA because they:",
+                    options:[
+                        "Help visualise patterns",
+                        "Delete records",
+                        "Replace datasets"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Correlation and Relationships",
+            description:"Understand relationships between variables.",
+            objective:"Interpret simple relationships between variables.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Correlation measures:",
+                    options:[
+                        "Relationship between variables",
+                        "Number of files",
+                        "Database size"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A positive relationship means:",
+                    options:[
+                        "Variables tend to increase together",
+                        "Both always decrease",
+                        "There is no relationship"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Correlation does not necessarily mean:",
+                    options:[
+                        "Causation",
+                        "Relationship",
+                        "Association"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Data Analysis Decision Making",
+            description:"Use analytical findings to support decisions.",
+            objective:"Translate analysis results into useful decisions.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Good analytical decisions should use:",
+                    options:[
+                        "Reliable evidence",
+                        "Random guesses",
+                        "Incomplete information"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Analysis findings should be:",
+                    options:[
+                        "Clearly interpreted",
+                        "Hidden",
+                        "Ignored"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"The final purpose of analysis is often to:",
+                    options:[
+                        "Support better decisions",
+                        "Increase confusion",
+                        "Delete information"
+                    ],
+                    answer:0
+                }
+            ]
+        }
+    ]
+
+},
+
+
+python:{
+
+    title:
+        "Python for Data Analysis",
+
+    subtitle:
+        "Build Python fundamentals for data-oriented programming.",
+
+    lessons:[
+        {
+            title:"Python Fundamentals",
+            description:"Learn basic Python syntax and programming concepts.",
+            objective:"Understand variables, values and basic Python statements.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Python is a:",
+                    options:[
+                        "Programming language",
+                        "Database",
+                        "Operating system"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A variable is used to:",
+                    options:[
+                        "Store a value",
+                        "Delete Python",
+                        "Create hardware"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Which symbol starts a Python comment?",
+                    options:[
+                        "#",
+                        "@",
+                        "$"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Python Data Types",
+            description:"Understand common Python data types.",
+            objective:"Identify strings, integers, floats and boolean values.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Which is an integer?",
+                    options:[
+                        "25",
+                        "\"25\"",
+                        "25.5"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Which is a string?",
+                    options:[
+                        "\"Hello\"",
+                        "100",
+                        "True"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Boolean values are:",
+                    options:[
+                        "True and False",
+                        "Yes and No only",
+                        "1 and 2 only"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Lists and Tuples",
+            description:"Learn Python collections used for storing multiple values.",
+            objective:"Understand basic list and tuple operations.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A Python list is:",
+                    options:[
+                        "A collection of values",
+                        "Only a number",
+                        "A database"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Lists are:",
+                    options:[
+                        "Mutable",
+                        "Always immutable",
+                        "Only strings"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Tuples are generally:",
+                    options:[
+                        "Immutable",
+                        "Always mutable",
+                        "Only numeric"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Functions",
+            description:"Create reusable blocks of Python code.",
+            objective:"Understand functions, parameters and return values.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A function is used to:",
+                    options:[
+                        "Reuse a block of code",
+                        "Delete Python",
+                        "Create hardware"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Which keyword defines a Python function?",
+                    options:[
+                        "def",
+                        "function",
+                        "fun"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A return statement:",
+                    options:[
+                        "Returns a value from a function",
+                        "Stops Python permanently",
+                        "Deletes a variable"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"NumPy Basics",
+            description:"Learn the fundamentals of NumPy arrays.",
+            objective:"Understand why NumPy is useful for numerical computing.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"NumPy is mainly used for:",
+                    options:[
+                        "Numerical computing",
+                        "Web browsing",
+                        "Video editing"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"The main NumPy data structure is:",
+                    options:[
+                        "ndarray",
+                        "HTML",
+                        "StringBuilder"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"NumPy arrays are useful because they:",
+                    options:[
+                        "Support efficient numerical operations",
+                        "Only store text",
+                        "Cannot contain numbers"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Python Data Analysis",
+            description:"Combine Python fundamentals with analytical thinking.",
+            objective:"Understand how Python supports practical data analysis.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Python can be used to:",
+                    options:[
+                        "Analyse datasets",
+                        "Only write documents",
+                        "Only browse websites"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A DataFrame is commonly associated with:",
+                    options:[
+                        "Tabular data",
+                        "Computer hardware",
+                        "Operating systems"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Data analysis libraries help:",
+                    options:[
+                        "Process and understand data",
+                        "Delete the internet",
+                        "Replace the CPU"
+                    ],
+                    answer:0
+                }
+            ]
+        }
+    ]
+
+},
+
+
+datavisualization:{
+
+    title:
+        "Data Visualization",
+
+    subtitle:
+        "Learn how to communicate information through effective visualizations.",
+
+    lessons:[
+        {
+            title:"Introduction to Data Visualization",
+            description:"Understand why visual representation is important.",
+            objective:"Explain how visualization improves understanding of data.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Data visualization means:",
+                    options:[
+                        "Representing data visually",
+                        "Deleting data",
+                        "Encrypting data"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Charts help users:",
+                    options:[
+                        "Understand patterns",
+                        "Hide all information",
+                        "Remove values"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Visualization is useful for:",
+                    options:[
+                        "Communicating findings",
+                        "Deleting datasets",
+                        "Replacing databases"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Charts and Graphs",
+            description:"Learn common charts and their uses.",
+            objective:"Choose appropriate charts for different data.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A bar chart is useful for:",
+                    options:[
+                        "Comparing categories",
+                        "Only showing passwords",
+                        "Deleting values"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A line chart is useful for:",
+                    options:[
+                        "Showing trends",
+                        "Only displaying categories",
+                        "Deleting data"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A pie chart shows:",
+                    options:[
+                        "Parts of a whole",
+                        "Only time",
+                        "Only averages"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Data Distribution",
+            description:"Understand how values are distributed.",
+            objective:"Interpret distributions and identify patterns.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A histogram is useful for:",
+                    options:[
+                        "Showing a numerical distribution",
+                        "Writing code",
+                        "Managing passwords"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Distribution describes:",
+                    options:[
+                        "How values are spread",
+                        "Only the largest value",
+                        "Only the smallest value"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"An outlier is:",
+                    options:[
+                        "An unusually distant observation",
+                        "The average",
+                        "The median"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Dashboard Design",
+            description:"Learn principles for creating useful dashboards.",
+            objective:"Create clear and informative dashboard layouts.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A dashboard should be:",
+                    options:[
+                        "Clear and focused",
+                        "Confusing",
+                        "Overloaded with unnecessary information"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"KPIs are used to:",
+                    options:[
+                        "Track important measures",
+                        "Delete data",
+                        "Replace all charts"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Good dashboard design uses:",
+                    options:[
+                        "Relevant visualizations",
+                        "Random charts",
+                        "Unrelated information"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Interactive Visualization",
+            description:"Understand interactive visual analysis.",
+            objective:"Use filters and interactions to explore information.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A filter is used to:",
+                    options:[
+                        "Limit displayed data",
+                        "Delete the database",
+                        "Change the CPU"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Interactive charts allow users to:",
+                    options:[
+                        "Explore information",
+                        "Destroy data",
+                        "Disable analysis"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Tooltips can provide:",
+                    options:[
+                        "Additional information",
+                        "Operating system updates",
+                        "Passwords"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Communicating Insights",
+            description:"Learn how to explain visual findings clearly.",
+            objective:"Present data insights in a clear and useful manner.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A data insight should be:",
+                    options:[
+                        "Clear and relevant",
+                        "Random",
+                        "Unexplained"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Good visualization supports:",
+                    options:[
+                        "Decision making",
+                        "Confusion",
+                        "Data deletion"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Charts should communicate:",
+                    options:[
+                        "The important pattern or message",
+                        "Every possible decoration",
+                        "Unrelated information"
+                    ],
+                    answer:0
+                }
+            ]
+        }
+    ]
+
+},
+
+
+excel:{
+
+    title:
+        "Advanced Excel",
+
+    subtitle:
+        "Build practical Excel skills for data analysis and reporting.",
+
+    lessons:[
+        {
+            title:"Excel Fundamentals",
+            description:"Understand the basic Excel environment.",
+            objective:"Use spreadsheets effectively for structured data.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Excel is primarily used for:",
+                    options:[
+                        "Spreadsheet data management",
+                        "Video editing",
+                        "Operating systems"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A cell is:",
+                    options:[
+                        "An individual spreadsheet location",
+                        "A database server",
+                        "A programming language"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Rows are generally identified by:",
+                    options:[
+                        "Numbers",
+                        "Only letters",
+                        "Symbols"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Excel Formulas",
+            description:"Learn basic formulas and calculations.",
+            objective:"Create formulas to calculate values.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Excel formulas normally begin with:",
+                    options:[
+                        "=",
+                        "#",
+                        "@"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"SUM is used to:",
+                    options:[
+                        "Add values",
+                        "Delete values",
+                        "Sort files"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"AVERAGE calculates:",
+                    options:[
+                        "The arithmetic mean",
+                        "The largest value only",
+                        "The smallest value only"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Excel Functions",
+            description:"Use common Excel functions for analysis.",
+            objective:"Apply functions to solve common data problems.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"COUNT is used to:",
+                    options:[
+                        "Count numeric values",
+                        "Delete rows",
+                        "Create charts"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"MAX returns:",
+                    options:[
+                        "The largest value",
+                        "The smallest value",
+                        "The average"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"MIN returns:",
+                    options:[
+                        "The smallest value",
+                        "The largest value",
+                        "The average"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Sorting and Filtering",
+            description:"Organize and filter spreadsheet information.",
+            objective:"Use sorting and filtering to analyse records.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"Sorting is used to:",
+                    options:[
+                        "Arrange data",
+                        "Delete Excel",
+                        "Create passwords"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Filtering is used to:",
+                    options:[
+                        "Display selected records",
+                        "Delete the workbook",
+                        "Replace formulas"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Ascending order generally means:",
+                    options:[
+                        "Smallest to largest",
+                        "Largest to smallest",
+                        "Random order"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Pivot Tables",
+            description:"Summarize large datasets using PivotTables.",
+            objective:"Use PivotTables to summarize and analyse data.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A PivotTable is useful for:",
+                    options:[
+                        "Summarizing data",
+                        "Deleting data",
+                        "Installing software"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"PivotTables can help identify:",
+                    options:[
+                        "Patterns and summaries",
+                        "Passwords",
+                        "Operating systems"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"A PivotTable works with:",
+                    options:[
+                        "Structured data",
+                        "Only images",
+                        "Only videos"
+                    ],
+                    answer:0
+                }
+            ]
+        },
+
+        {
+            title:"Excel Reporting",
+            description:"Create useful reports from spreadsheet data.",
+            objective:"Build clear reports using Excel analysis tools.",
+            video:"aMkq3tRBU7U",
+            questions:[
+                {
+                    question:"A good report should be:",
+                    options:[
+                        "Clear and relevant",
+                        "Confusing",
+                        "Unstructured"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Charts in Excel help:",
+                    options:[
+                        "Communicate information visually",
+                        "Delete formulas",
+                        "Remove datasets"
+                    ],
+                    answer:0
+                },
+                {
+                    question:"Excel reporting supports:",
+                    options:[
+                        "Data-driven decisions",
+                        "Random decisions",
+                        "Data deletion"
+                    ],
+                    answer:0
+                }
+            ]
+        }
+    ]
+
+}
+
+};
+
+
+/* =====================================================
+   SELECT COURSE
+===================================================== */
+
+const course =
+    courses[topic] ||
+    courses.statistics;
+
+
+/*
+ * If an unknown topic is supplied,
+ * use statistics safely.
+ */
+const activeTopic =
+    courses[topic]
+    ? topic
+    : "statistics";
+
+
+/* =====================================================
+   STORAGE KEY
+===================================================== */
+
+const progressKey =
+    `statAI_courseLearning_${employee.id}_${activeTopic}`;
+
+
+/* =====================================================
+   HISTORY KEY
+===================================================== */
+
+const historyKey =
+    `statAI_learningAssessmentHistory_${employee.id}`;
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentLesson = 0;
+
+let assessmentOpened = false;
+
+let progress;
+
+
+/* =====================================================
+   CREATE INITIAL PROGRESS
+===================================================== */
+
+function createInitialProgress(){
+
+    return {
+
+        currentLesson:0,
+
+        completed:false,
+
+        modules:
+
+            course.lessons.map(
+                () => ({
+
+                    assessmentPassed:false,
+
+                    lessonCompleted:false,
+
+                    attempts:0,
+
+                    score:0,
+
+                    lastAttemptAt:null
+
+                })
+            )
+
+    };
+
+}
+
+
+/* =====================================================
+   LOAD PROGRESS
+===================================================== */
+
+function loadProgress(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                progressKey
+            );
+
+
+        if(raw){
+
+            progress =
+                JSON.parse(raw);
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Progress loading error:",
+            error
+        );
+
+    }
+
+
+    if(
+        !progress ||
+        !Array.isArray(progress.modules)
+    ){
+
+        progress =
+            createInitialProgress();
+
+        saveProgress();
+
+    }
+
+
+    /*
+     * Make sure progress matches
+     * current course length.
+     */
+
+    while(
+        progress.modules.length <
+        course.lessons.length
+    ){
+
+        progress.modules.push({
+
+            assessmentPassed:false,
+
+            lessonCompleted:false,
+
+            attempts:0,
+
+            score:0,
+
+            lastAttemptAt:null
+
+        });
+
+    }
+
+
+    currentLesson =
+        Math.min(
+
+            Number(
+                progress.currentLesson || 0
+            ),
+
+            course.lessons.length - 1
+
+        );
+
+
+    /*
+     * If some module is completed,
+     * find the first incomplete module.
+     */
+
+    const firstIncomplete =
+        progress.modules.findIndex(
+            module =>
+                !module.assessmentPassed
+        );
+
+
+    if(firstIncomplete >= 0){
+
+        /*
+         * Don't automatically jump away
+         * from the module the learner selected
+         * if it is unlocked.
+         */
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE PROGRESS
+===================================================== */
+
+function saveProgress(){
+
+    try{
+
+        /*
+         * Always keep current module.
+         */
+
+        progress.currentLesson =
+            currentLesson;
+
+
+        localStorage.setItem(
+
+            progressKey,
+
+            JSON.stringify(progress)
+
+        );
+
+        console.log(
+            "Course progress saved:",
+            progress
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Unable to save progress:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MODULE COMPLETE
+===================================================== */
+
+function isModuleComplete(index){
+
+    const module =
+        progress.modules[index];
+
+
+    return Boolean(
+
+        module &&
+
+        module.assessmentPassed === true &&
+
+        module.lessonCompleted === true
+
+    );
+
+}
+
+
+/* =====================================================
+   MODULE UNLOCKED
+===================================================== */
+
+function isModuleUnlocked(index){
+
+    if(index === 0)
+        return true;
+
+
+    return isModuleComplete(
+        index - 1
+    );
+
+}
+
+
+/* =====================================================
+   COMPLETED COUNT
+===================================================== */
+
+function getCompletedCount(){
+
+    return progress.modules.filter(
+
+        module =>
+            module &&
+            module.assessmentPassed === true
+
+    ).length;
+
+}
+
+
+/* =====================================================
+   COURSE PERCENTAGE
+===================================================== */
+
+function getCoursePercentage(){
+
+    const total =
+        course.lessons.length;
+
+
+    const completed =
+        getCompletedCount();
+
+
+    if(total === 0)
+        return 0;
+
+
+    return Math.round(
+        completed / total * 100
+    );
+
+}
+
+
+/* =====================================================
+   RENDER MODULE LIST
+===================================================== */
+
+function renderModuleList(){
+
+    const container =
+        document.getElementById(
+            "moduleList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    course.lessons.forEach(
+        (lesson,index) => {
+
+
+            const unlocked =
+                isModuleUnlocked(index);
+
+
+            const completed =
+                isModuleComplete(index);
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "module-item";
+
+
+            if(index === currentLesson){
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            if(completed){
+
+                button.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+            if(!unlocked){
+
+                button.classList.add(
+                    "locked"
+                );
+
+            }
+
+
+            let status = "Available";
+
+
+            if(completed){
+
+                status =
+                    "✓ Assessment Passed";
+
+            }
+
+            else if(!unlocked){
+
+                status =
+                    "🔒 Locked";
+
+            }
+
+            else if(index === currentLesson){
+
+                status =
+                    assessmentOpened
+                    ? "Assessment in progress"
+                    : "Available";
+
+            }
+
+
+            button.innerHTML = `
+
+                <div class="module-number">
+
+                    ${
+                        completed
+                        ? "✓"
+                        : index + 1
+                    }
+
+                </div>
+
+
+                <div class="module-name">
+
+                    ${escapeHTML(
+                        lesson.title
+                    )}
+
+                </div>
+
+
+                <div class="module-status">
+
+                    ${status}
+
+                </div>
+
+            `;
+
+
+            button.onclick = () => {
+
+                if(!unlocked){
+
+                    showToast(
+                        "Complete the previous assessment first."
+                    );
+
+                    return;
+
+                }
+
+
+                goToLesson(index);
+
+            };
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   GO TO LESSON
+===================================================== */
+
+function goToLesson(index){
+
+    if(!isModuleUnlocked(index)){
+
+        showToast(
+            "This module is locked."
+        );
+
+        return;
+
+    }
+
+
+    currentLesson =
+        index;
+
+
+    assessmentOpened =
+        false;
+
+
+    saveProgress();
+
+    renderLesson();
+
+    renderModuleList();
+
+    updateProgress();
+
+    updateNavigation();
+
+}
+
+
+/* =====================================================
+   RENDER LESSON
+===================================================== */
+
+function renderLesson(){
+
+    const lesson =
+        course.lessons[
+            currentLesson
+        ];
+
+
+    document.getElementById(
+        "courseTitle"
+    ).textContent =
+        course.title;
+
+
+    document.getElementById(
+        "courseSubtitle"
+    ).textContent =
+        course.subtitle;
+
+
+    document.getElementById(
+        "employeeName"
+    ).textContent =
+        employee.name;
+
+
+    document.getElementById(
+        "lessonNumber"
+    ).textContent =
+        currentLesson + 1;
+
+
+    document.getElementById(
+        "lessonTitle"
+    ).textContent =
+        lesson.title;
+
+
+    document.getElementById(
+        "lessonDescription"
+    ).textContent =
+        lesson.description;
+
+
+    document.getElementById(
+        "lessonObjective"
+    ).textContent =
+        lesson.objective;
+
+
+    /*
+     * VIDEO
+     */
+
+    setVideo(
+        lesson.video
+    );
+
+
+    /*
+     * Assessment visibility
+     */
+
+    const module =
+        progress.modules[
+            currentLesson
+        ];
+
+
+    if(module.assessmentPassed){
+
+        showAssessment();
+
+        renderQuestions(
+            true
+        );
+
+        showPassedResult(
+            module.score
+        );
+
+    }
+    else{
+
+        hideAssessment();
+
+    }
+
+
+    updateProgress();
+
+}
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+function getVideoURL(videoId){
+
+    return (
+        "https://www.youtube-nocookie.com/embed/" +
+        videoId +
+        "?rel=0&modestbranding=1&playsinline=1"
+    );
+
+}
+
+
+function getYouTubeURL(videoId){
+
+    return (
+        "https://www.youtube.com/watch?v=" +
+        videoId
+    );
+
+}
+
+
+function setVideo(videoId){
+
+    const frame =
+        document.getElementById(
+            "videoFrame"
+        );
+
+
+    const status =
+        document.getElementById(
+            "videoStatus"
+        );
+
+
+    const button =
+        document.getElementById(
+            "youtubeButton"
+        );
+
+
+    frame.src =
+        getVideoURL(
+            videoId
+        );
+
+
+    button.href =
+        getYouTubeURL(
+            videoId
+        );
+
+
+    status.className =
+        "video-status";
+
+
+    status.textContent =
+        "Video available. Watching is optional.";
+
+
+    frame.onload =
+        function(){
+
+            status.textContent =
+                "Video player loaded. Watching is optional.";
+
+        };
+
+
+    frame.onerror =
+        function(){
+
+            status.className =
+                "video-status error";
+
+
+            status.textContent =
+                "The embedded video could not load. Use Open on YouTube.";
+
+        };
+
+}
+
+
+/* =====================================================
+   RELOAD VIDEO
+===================================================== */
+
+function reloadVideo(){
+
+    const lesson =
+        course.lessons[
+            currentLesson
+        ];
+
+
+    setVideo(
+        lesson.video
+    );
+
+
+    showToast(
+        "Video refreshed."
+    );
+
+}
+
+
+/* =====================================================
+   SHOW ASSESSMENT
+===================================================== */
+
+function showAssessment(){
+
+    document.getElementById(
+        "assessmentSection"
+    ).style.display =
+        "block";
+
+
+    assessmentOpened =
+        true;
+
+
+    renderQuestions();
+
+    renderModuleList();
+
+    updateNavigation();
+
+}
+
+
+/* =====================================================
+   HIDE ASSESSMENT
+===================================================== */
+
+function hideAssessment(){
+
+    document.getElementById(
+        "assessmentSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "assessmentResult"
+    ).innerHTML =
+        "";
+
+
+    assessmentOpened =
+        false;
+
+}
+
+
+/* =====================================================
+   RENDER QUESTIONS
+===================================================== */
+
+function renderQuestions(
+    completed = false
+){
+
+    const lesson =
+        course.lessons[
+            currentLesson
+        ];
+
+
+    const container =
+        document.getElementById(
+            "questionsContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    lesson.questions.forEach(
+        (question,index) => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "question";
+
+
+            div.innerHTML = `
+
+                <div class="question-title">
+
+                    ${index + 1}.
+                    ${escapeHTML(
+                        question.question
+                    )}
+
+                </div>
+
+
+                ${
+                    question.options
+                    .map(
+                        (option,
+                         optionIndex) => `
+
+                            <label
+                                class="option"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="question-${index}"
+                                    value="${optionIndex}"
+                                    ${
+                                        completed
+                                        ? "disabled"
+                                        : ""
+                                    }
+                                >
+
+                                ${escapeHTML(
+                                    option
+                                )}
+
+                            </label>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "submitButton"
+    ).style.display =
+        completed
+        ? "none"
+        : "inline-block";
+
+
+    document.getElementById(
+        "retryButton"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   SUBMIT ASSESSMENT
+===================================================== */
+
+function submitAssessment(){
+
+    const lesson =
+        course.lessons[
+            currentLesson
+        ];
+
+
+    let score = 0;
+
+    let unanswered = 0;
+
+
+    lesson.questions.forEach(
+        (question,index) => {
+
+
+            const selected =
+                document.querySelector(
+                    `input[name="question-${index}"]:checked`
+                );
+
+
+            if(!selected){
+
+                unanswered++;
+
+                return;
+
+            }
+
+
+            const answer =
+                Number(
+                    selected.value
+                );
+
+
+            if(
+                answer ===
+                question.answer
+            ){
+
+                score++;
+
+            }
+
+        }
+    );
+
+
+    if(unanswered > 0){
+
+        showToast(
+            "Please answer all questions."
+        );
+
+        return;
+
+    }
+
+
+    const total =
+        lesson.questions.length;
+
+
+    const percentage =
+        Math.round(
+            score / total * 100
+        );
+
+
+    const passed =
+        score >= 2;
+
+
+    const module =
+        progress.modules[
+            currentLesson
+        ];
+
+
+    module.attempts =
+        Number(
+            module.attempts || 0
+        ) + 1;
+
+
+    module.score =
+        percentage;
+
+
+    module.lastAttemptAt =
+        new Date().toISOString();
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Only a PASSED assessment
+     * increases course progress.
+     */
+
+    if(passed){
+
+        module.assessmentPassed =
+            true;
+
+
+        module.lessonCompleted =
+            true;
+
+
+        /*
+         * Save immediately.
+         */
+
+        saveProgress();
+
+
+        /*
+         * Save assessment history.
+         */
+
+        saveAssessmentHistory(
+            score,
+            total,
+            percentage,
+            true
+        );
+
+
+        showPassedResult(
+            percentage
+        );
+
+
+        /*
+         * Refresh everything immediately.
+         */
+
+        updateProgress();
+
+        renderModuleList();
+
+        updateNavigation();
+
+
+        showToast(
+            `Assessment passed! ${score}/${total}`
+        );
+
+
+        /*
+         * If final module is completed,
+         * mark course completed.
+         */
+
+        if(
+            getCompletedCount() ===
+            course.lessons.length
+        ){
+
+            progress.completed =
+                true;
+
+            saveProgress();
+
+        }
+
+    }
+    else{
+
+        /*
+         * Failed assessment does NOT
+         * mark module complete.
+         */
+
+        module.assessmentPassed =
+            false;
+
+
+        module.lessonCompleted =
+            false;
+
+
+        saveProgress();
+
+
+        saveAssessmentHistory(
+            score,
+            total,
+            percentage,
+            false
+        );
+
+
+        showFailedResult(
+            score,
+            total,
+            percentage
+        );
+
+
+        updateProgress();
+
+        renderModuleList();
+
+        updateNavigation();
+
+
+        showToast(
+            `Assessment failed. Score: ${score}/${total}`
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE ASSESSMENT HISTORY
+===================================================== */
+
+function saveAssessmentHistory(
+    score,
+    total,
+    percentage,
+    passed
+){
+
+    let history = [];
+
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                historyKey
+            );
+
+
+        if(raw){
+
+            history =
+                JSON.parse(raw);
+
+        }
+
+    }
+    catch(error){
+
+        history = [];
+
+    }
+
+
+    if(!Array.isArray(history)){
+
+        history = [];
+
+    }
+
+
+    history.push({
+
+        employeeId:
+            employee.id,
+
+        employeeName:
+            employee.name,
+
+        topic:
+            activeTopic,
+
+        courseTitle:
+            course.title,
+
+        lessonIndex:
+            currentLesson,
+
+        lessonTitle:
+            course.lessons[
+                currentLesson
+            ].title,
+
+        score:
+            score,
+
+        total:
+            total,
+
+        percentage:
+            percentage,
+
+        passed:
+            passed,
+
+        timestamp:
+            new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+
+        historyKey,
+
+        JSON.stringify(history)
+
+    );
+
+}
+
+
+/* =====================================================
+   SHOW PASSED RESULT
+===================================================== */
+
+function showPassedResult(
+    percentage
+){
+
+    const result =
+        document.getElementById(
+            "assessmentResult"
+        );
+
+
+    result.className =
+        "assessment-result pass";
+
+
+    result.innerHTML = `
+
+        ✓ Assessment Passed
+
+        <br>
+
+        Score:
+        ${percentage}%
+
+        <br><br>
+
+        This module is now completed.
+        The next module is unlocked.
+
+    `;
+
+
+    document.getElementById(
+        "retryButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "submitButton"
+    ).style.display =
+        "none";
+
+
+    renderQuestions(
+        true
+    );
+
+}
+
+
+/* =====================================================
+   SHOW FAILED RESULT
+===================================================== */
+
+function showFailedResult(
+    score,
+    total,
+    percentage
+){
+
+    const result =
+        document.getElementById(
+            "assessmentResult"
+        );
+
+
+    result.className =
+        "assessment-result fail";
+
+
+    result.innerHTML = `
+
+        ✕ Assessment Not Passed
+
+        <br>
+
+        Score:
+        ${score}/${total}
+        (${percentage}%)
+
+        <br><br>
+
+        You need at least
+        <strong>2 out of 3</strong>
+        correct answers.
+
+        You can retry the assessment.
+
+    `;
+
+
+    document.getElementById(
+        "retryButton"
+    ).style.display =
+        "inline-block";
+
+
+    document.getElementById(
+        "submitButton"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   RETRY ASSESSMENT
+===================================================== */
+
+function retryAssessment(){
+
+    const module =
+        progress.modules[
+            currentLesson
+        ];
+
+
+    module.assessmentPassed =
+        false;
+
+
+    module.lessonCompleted =
+        false;
+
+
+    saveProgress();
+
+
+    document.getElementById(
+        "assessmentResult"
+    ).innerHTML =
+        "";
+
+
+    renderQuestions(
+        false
+    );
+
+
+    document.getElementById(
+        "retryButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "submitButton"
+    ).style.display =
+        "inline-block";
+
+
+    assessmentOpened =
+        true;
+
+
+    renderModuleList();
+
+    updateNavigation();
+
+}
+
+
+/* =====================================================
+   NEXT LESSON
+===================================================== */
+
+function nextLesson(){
+
+    const module =
+        progress.modules[
+            currentLesson
+        ];
+
+
+    /*
+     * If current assessment is not passed,
+     * open assessment instead of moving on.
+     */
+
+    if(
+        !module.assessmentPassed
+    ){
+
+        showAssessment();
+
+        showToast(
+            "Complete the assessment to unlock the next module."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Current module passed.
+     */
+
+    if(
+        currentLesson <
+        course.lessons.length - 1
+    ){
+
+        currentLesson++;
+
+        assessmentOpened =
+            false;
+
+
+        saveProgress();
+
+        renderLesson();
+
+        renderModuleList();
+
+        updateProgress();
+
+        updateNavigation();
+
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    }
+    else{
+
+        /*
+         * Course finished.
+         */
+
+        progress.completed =
+            true;
+
+
+        saveProgress();
+
+
+        showCompletion();
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousLesson(){
+
+    if(currentLesson <= 0){
+
+        return;
+
+    }
+
+
+    currentLesson--;
+
+    assessmentOpened =
+        false;
+
+
+    saveProgress();
+
+    renderLesson();
+
+    renderModuleList();
+
+    updateProgress();
+
+    updateNavigation();
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =====================================================
+   UPDATE PROGRESS
+===================================================== */
+
+function updateProgress(){
+
+    const completed =
+        getCompletedCount();
+
+
+    const total =
+        course.lessons.length;
+
+
+    const percentage =
+        getCoursePercentage();
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        `${completed} of ${total} assessments completed`;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+
+    document.getElementById(
+        "sideProgress"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "sideProgressFill"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function updateNavigation(){
+
+    const previous =
+        document.getElementById(
+            "previousButton"
+        );
+
+
+    const next =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    previous.disabled =
+        currentLesson === 0;
+
+
+    const module =
+        progress.modules[
+            currentLesson
+        ];
+
+
+    if(
+        !module.assessmentPassed
+    ){
+
+        next.textContent =
+            "Go to Assessment →";
+
+        next.className =
+            "btn btn-primary";
+
+        return;
+
+    }
+
+
+    if(
+        currentLesson ===
+        course.lessons.length - 1
+    ){
+
+        next.textContent =
+            "Complete Course ✓";
+
+        next.className =
+            "btn btn-success";
+
+    }
+    else{
+
+        next.textContent =
+            "Next Module →";
+
+        next.className =
+            "btn btn-primary";
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPLETION
+===================================================== */
+
+function showCompletion(){
+
+    document.getElementById(
+        "lessonArea"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "completionArea"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "completionText"
+    ).textContent =
+
+        `Congratulations ${employee.name}! You successfully completed all ${course.lessons.length} assessments in ${course.title}. Your course progress is now 100%.`;
+
+
+    updateProgress();
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2500
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutUser(){
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+
+    localStorage.removeItem(
+        "loggedInEmployee"
+    );
+
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadProgress();
+
+        document.getElementById(
+            "courseTitle"
+        ).textContent =
+            course.title;
+
+
+        document.getElementById(
+            "courseSubtitle"
+        ).textContent =
+            course.subtitle;
+
+
+        document.getElementById(
+            "employeeName"
+        ).textContent =
+            employee.name;
+
+
+        renderLesson();
+
+        renderModuleList();
+
+        updateProgress();
+
+        updateNavigation();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

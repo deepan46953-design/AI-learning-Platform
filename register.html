@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StatAI Karmayog | Registration</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body class="auth-body">
+
+<div class="auth-page">
+
+    <div class="auth-brand">
+
+        <div class="logo-box">
+            📊
+        </div>
+
+        <div>
+            <h1>StatAI</h1>
+            <span>Karmayog</span>
+        </div>
+
+    </div>
+
+
+    <div class="register-layout">
+
+        <div class="register-info">
+
+            <div class="badge">
+                ✨ Create Your Learning Profile
+            </div>
+
+            <h2>
+                Start Your
+                <span>Personalized Learning Journey</span>
+            </h2>
+
+            <p>
+                Your profile helps StatAI Karmayog
+                understand your background, skills and
+                interests so that learning recommendations
+                can be personalized.
+            </p>
+
+            <div class="register-benefits">
+
+                <div>✓ Unique Employee ID</div>
+                <div>✓ Competency Assessment</div>
+                <div>✓ Personalized Courses</div>
+                <div>✓ AI Quiz Generation</div>
+                <div>✓ Learning Progress Tracking</div>
+
+            </div>
+
+        </div>
+
+
+        <div class="auth-card register-card">
+
+            <div class="card-header">
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Enter your professional information
+                </p>
+
+            </div>
+
+
+            <form id="registerForm">
+
+                <h3 class="form-section-title">
+                    Personal Details
+                </h3>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Full Name *</label>
+
+                        <input
+                            type="text"
+                            id="registerName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Email *</label>
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Phone</label>
+
+                        <input
+                            type="tel"
+                            id="registerPhone"
+                            maxlength="15"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Qualification *</label>
+
+                        <select
+                            id="registerQualification"
+                            required
+                        >
+
+                            <option value="">
+                                Select qualification
+                            </option>
+
+                            <option>10th</option>
+                            <option>12th</option>
+                            <option>Diploma</option>
+                            <option>Undergraduate</option>
+                            <option>Postgraduate</option>
+                            <option>PhD</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <h3 class="form-section-title">
+                    Professional Details
+                </h3>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Profession *</label>
+
+                        <input
+                            type="text"
+                            id="registerProfession"
+                            placeholder="Example: Student"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Area of Interest *</label>
+
+                        <select
+                            id="registerInterest"
+                            required
+                        >
+
+                            <option value="">
+                                Select interest
+                            </option>
+
+                            <option>Statistics</option>
+                            <option>Data Analysis</option>
+                            <option>Data Science</option>
+                            <option>Artificial Intelligence</option>
+                            <option>Machine Learning</option>
+                            <option>Economics</option>
+                            <option>Research</option>
+                            <option>Official Statistics</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Skills *</label>
+
+                    <textarea
+                        id="registerSkills"
+                        rows="3"
+                        placeholder="Example: C++, Java, Python, Excel, Statistics"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <h3 class="form-section-title">
+                    Account Security
+                </h3>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Password *</label>
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            minlength="6"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Confirm Password *</label>
+
+                        <input
+                            type="password"
+                            id="registerConfirmPassword"
+                            minlength="6"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="registerButton"
+                >
+                    Create Account
+                </button>
+
+
+                <div
+                    id="registerMessage"
+                    class="form-message"
+                ></div>
+
+            </form>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="index.html">
+                    Login here
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        StatAI Karmayogi - AI Quiz
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        :root {
+
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+
+            --sidebar: #0f2742;
+            --sidebar-light: #173a5c;
+
+            --text: #172033;
+            --muted: #64748b;
+
+            --border: #e2e8f0;
+
+            --background: #f5f8fc;
+
+            --white: #ffffff;
+
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+
+            --shadow:
+                0 10px 30px rgba(15, 39, 66, 0.07);
+
+            --shadow-hover:
+                0 15px 35px rgba(15, 39, 66, 0.11);
+
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f7faff 0%,
+                    #f2f6fb 100%
+                );
+
+            color: var(--text);
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================================
+           APP
+        ========================================================= */
+
+        .app {
+
+            display: flex;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+
+            width: 260px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #102a43 0%,
+                    #0c2238 100%
+                );
+
+            color: white;
+
+            padding: 28px 18px;
+
+            position: fixed;
+
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            z-index: 100;
+
+            box-shadow:
+                4px 0 25px
+                rgba(15, 39, 66, 0.10);
+        }
+
+
+        .sidebar-brand {
+
+            padding:
+                8px 12px 25px;
+
+            margin-bottom: 18px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.09);
+        }
+
+
+        .sidebar-brand h2 {
+
+            margin: 0;
+
+            font-size: 26px;
+
+            font-weight: 750;
+
+            letter-spacing: -0.5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #bfdbfe
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+        }
+
+
+        .sidebar-brand span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #9fc5e8;
+
+            font-size: 13px;
+
+            letter-spacing: .4px;
+        }
+
+
+        .sidebar-nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+
+        .sidebar-nav a {
+
+            display: flex;
+
+            align-items: center;
+
+            color: #d7e5f2;
+
+            text-decoration: none;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .sidebar-nav a:hover {
+
+            background:
+                rgba(255,255,255,.08);
+
+            color: white;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .sidebar-nav a.active {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            box-shadow:
+                0 7px 18px
+                rgba(37,99,235,.25);
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .main-content {
+
+            margin-left: 260px;
+
+            width:
+                calc(100% - 260px);
+
+            padding: 38px 42px 60px;
+        }
+
+
+        .quiz-page {
+
+            max-width: 1080px;
+
+            margin: auto;
+        }
+
+
+        /* =========================================================
+           TITLE / INTRO CARD
+        ========================================================= */
+
+        .quiz-title-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #f8fbff 100%
+                );
+
+            padding: 34px;
+
+            border-radius: 18px;
+
+            margin-bottom: 24px;
+
+            border:
+                1px solid
+                rgba(226,232,240,.9);
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .quiz-title-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+
+            height: 180px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(37,99,235,.06);
+
+            right: -60px;
+
+            top: -70px;
+        }
+
+
+        .quiz-title-card h1 {
+
+            position: relative;
+
+            z-index: 1;
+
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+            line-height: 1.2;
+
+            letter-spacing: -0.6px;
+        }
+
+
+        .quiz-title-card p {
+
+            position: relative;
+
+            z-index: 1;
+
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           QUIZ HEADER
+        ========================================================= */
+
+        .quiz-header {
+
+            background: white;
+
+            padding: 24px 28px;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+
+            border:
+                1px solid
+                var(--border);
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .quiz-header small {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color: var(--primary);
+
+            font-size: 11px;
+
+            font-weight: 750;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 7px;
+
+            background:
+                var(--primary-light);
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+        }
+
+
+        .quiz-header small::before {
+
+            content: "✦";
+
+            font-size: 12px;
+        }
+
+
+        .quiz-header h2 {
+
+            margin: 3px 0 0;
+
+            font-size: 22px;
+
+            letter-spacing: -.3px;
+        }
+
+
+        .question-count {
+
+            background:
+                #f1f5f9;
+
+            color:
+                #334155;
+
+            padding:
+                10px 15px;
+
+            border-radius:
+                10px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                700;
+
+            white-space:
+                nowrap;
+        }
+
+
+        /* =========================================================
+           QUESTION CARD
+        ========================================================= */
+
+        .quiz-question {
+
+            background: white;
+
+            padding: 26px;
+
+            border-radius: 16px;
+
+            margin-bottom: 18px;
+
+            border:
+                1px solid
+                var(--border);
+
+            box-shadow:
+                0 6px 22px
+                rgba(15,39,66,.055);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+
+            animation:
+                fadeUp .35s ease both;
+        }
+
+
+        .quiz-question:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                var(--shadow-hover);
+
+            border-color:
+                #d5e1ef;
+        }
+
+
+        .quiz-question h3 {
+
+            line-height: 1.55;
+
+            margin:
+                0 0 20px;
+
+            font-size: 17px;
+
+            font-weight: 650;
+
+            color: #172033;
+        }
+
+
+        /* =========================================================
+           OPTIONS
+        ========================================================= */
+
+        .options {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap: 10px;
+        }
+
+
+        .options label {
+
+            position:
+                relative;
+
+            display:
+                flex;
+
+            gap:
+                13px;
+
+            align-items:
+                flex-start;
+
+            padding:
+                15px 16px;
+
+            border:
+                1px solid
+                #dce4ee;
+
+            border-radius:
+                11px;
+
+            margin:
+                0;
+
+            cursor:
+                pointer;
+
+            background:
+                #ffffff;
+
+            transition:
+                all .18s ease;
+        }
+
+
+        .options label:hover {
+
+            background:
+                #f7faff;
+
+            border-color:
+                #9dbce8;
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .options input {
+
+            margin-top:
+                3px;
+
+            accent-color:
+                var(--primary);
+
+            width:
+                16px;
+
+            height:
+                16px;
+
+            flex-shrink:
+                0;
+
+            cursor:
+                pointer;
+        }
+
+
+        .options label:has(input:checked) {
+
+            background:
+                #eff6ff;
+
+            border-color:
+                #60a5fa;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37,99,235,.07);
+        }
+
+
+        .options label span {
+
+            color:
+                #334155;
+
+            font-size:
+                14px;
+
+            line-height:
+                1.5;
+        }
+
+
+        .options label:has(input:checked) span {
+
+            color:
+                #1d4ed8;
+
+            font-weight:
+                600;
+        }
+
+
+        /* =========================================================
+           SUBMIT AREA
+        ========================================================= */
+
+        #materialQuizForm {
+
+            padding-bottom:
+                20px;
+        }
+
+
+        .submit-area {
+
+            display:
+                flex;
+
+            justify-content:
+                flex-end;
+
+            padding:
+                5px 0 10px;
+        }
+
+
+        .primary-btn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color:
+                white;
+
+            border:
+                0;
+
+            padding:
+                14px 27px;
+
+            border-radius:
+                10px;
+
+            cursor:
+                pointer;
+
+            font-size:
+                15px;
+
+            font-weight:
+                650;
+
+            letter-spacing:
+                .1px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(37,99,235,.20);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
+        }
+
+
+        .primary-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(37,99,235,.28);
+        }
+
+
+        .primary-btn:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .primary-btn:disabled {
+
+            opacity:
+                .6;
+
+            cursor:
+                not-allowed;
+
+            box-shadow:
+                none;
+        }
+
+
+        /* =========================================================
+           RESULT CARD
+        ========================================================= */
+
+        .quiz-result {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #f8fbff
+                );
+
+            padding:
+                50px 35px;
+
+            border-radius:
+                20px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid
+                var(--border);
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .quiz-result h1 {
+
+            margin:
+                0 0 10px;
+
+            font-size:
+                28px;
+        }
+
+
+        .quiz-result h3 {
+
+            margin:
+                5px 0 12px;
+
+            font-size:
+                17px;
+
+            color:
+                #334155;
+        }
+
+
+        .quiz-result p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                14px;
+
+            margin:
+                0 auto 25px;
+
+            max-width:
+                550px;
+        }
+
+
+        .result-score {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            width:
+                145px;
+
+            height:
+                145px;
+
+            margin:
+                25px auto;
+
+            border-radius:
+                50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #dbeafe
+                );
+
+            border:
+                8px solid
+                #bfdbfe;
+
+            color:
+                #1d4ed8;
+
+            font-size:
+                42px;
+
+            font-weight:
+                800;
+
+            box-shadow:
+                0 10px 30px
+                rgba(37,99,235,.13);
+        }
+
+
+        /* =========================================================
+           SMALL BUTTONS
+        ========================================================= */
+
+        .small-btn {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                11px 18px;
+
+            border-radius:
+                9px;
+
+            border:
+                1px solid
+                #dbe4ee;
+
+            background:
+                white;
+
+            color:
+                #1e40af;
+
+            text-decoration:
+                none;
+
+            cursor:
+                pointer;
+
+            margin:
+                5px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+
+            transition:
+                all .2s ease;
+        }
+
+
+        .small-btn:hover {
+
+            background:
+                #eff6ff;
+
+            border-color:
+                #93c5fd;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .quiz-result .small-btn:first-child {
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            border-color:
+                var(--primary);
+        }
+
+
+        .quiz-result .small-btn:first-child:hover {
+
+            background:
+                var(--primary-dark);
+        }
+
+
+        /* =========================================================
+           ERROR
+        ========================================================= */
+
+        .error-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #fff8f8
+                );
+
+            border:
+                1px solid
+                #fecaca;
+
+            padding:
+                32px;
+
+            border-radius:
+                16px;
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .error-box h2 {
+
+            margin:
+                0 0 10px;
+
+            color:
+                #991b1b;
+
+            font-size:
+                22px;
+        }
+
+
+        .error-box p {
+
+            color:
+                #64748b;
+
+            line-height:
+                1.6;
+
+            margin-bottom:
+                20px;
+        }
+
+
+        .error-box .small-btn {
+
+            background:
+                #dc2626;
+
+            border-color:
+                #dc2626;
+
+            color:
+                white;
+        }
+
+
+        .error-box .small-btn:hover {
+
+            background:
+                #b91c1c;
+        }
+
+
+        /* =========================================================
+           QUIZ MESSAGE
+        ========================================================= */
+
+        #quizMessage {
+
+            margin-top:
+                15px;
+        }
+
+
+        /* =========================================================
+           ANIMATION
+        ========================================================= */
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(8px);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                width:
+                    220px;
+            }
+
+
+            .main-content {
+
+                margin-left:
+                    220px;
+
+                width:
+                    calc(100% - 220px);
+
+                padding:
+                    25px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .app {
+
+                display:
+                    block;
+            }
+
+
+            .sidebar {
+
+                display:
+                    none;
+            }
+
+
+            .main-content {
+
+                margin-left:
+                    0;
+
+                width:
+                    100%;
+
+                padding:
+                    18px;
+            }
+
+
+            .quiz-title-card {
+
+                padding:
+                    25px 22px;
+            }
+
+
+            .quiz-title-card h1 {
+
+                font-size:
+                    25px;
+            }
+
+
+            .quiz-header {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                padding:
+                    21px;
+            }
+
+
+            .quiz-header h2 {
+
+                font-size:
+                    20px;
+            }
+
+
+            .quiz-question {
+
+                padding:
+                    21px;
+            }
+
+
+            .quiz-question h3 {
+
+                font-size:
+                    16px;
+            }
+
+
+            .submit-area {
+
+                justify-content:
+                    stretch;
+            }
+
+
+            .primary-btn {
+
+                width:
+                    100%;
+            }
+
+
+            .quiz-result {
+
+                padding:
+                    38px 20px;
+            }
+
+
+            .result-score {
+
+                width:
+                    125px;
+
+                height:
+                    125px;
+
+                font-size:
+                    36px;
+            }
+
+
+            .small-btn {
+
+                width:
+                    calc(100% - 10px);
+
+                margin:
+                    5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h2>
+                StatAI
+            </h2>
+
+            <span>
+                Karmayogi
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="assessment.html">
+                Competency Assessment
+            </a>
+
+            <a href="courses.html">
+                Courses
+            </a>
+
+            <a href="materials.html">
+                Learning Materials
+            </a>
+
+            <a
+                href="quiz.html"
+                class="active"
+            >
+                AI Quiz
+            </a>
+
+            <a href="results.html">
+                Results
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="main-content">
+
+        <div class="quiz-page">
+
+            <div id="quizContainer">
+
+                <div class="quiz-title-card">
+
+                    <h1>
+                        🤖 AI Generated Quiz
+                    </h1>
+
+                    <p>
+                        Loading your generated questions...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+
+/* ============================================================
+   LOAD MATERIAL QUIZ
+   ============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const source =
+            params.get(
+                "source"
+            );
+
+
+        if (
+            source === "material"
+        ) {
+
+            loadMaterialQuiz();
+
+        } else {
+
+            showNoQuiz();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   LOAD QUIZ
+   ============================================================ */
+
+function loadMaterialQuiz() {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const stored =
+        localStorage.getItem(
+            "materialQuiz"
+        );
+
+
+    if (!stored) {
+
+        showNoQuiz();
+
+        return;
+    }
+
+
+    let quiz;
+
+
+    try {
+
+        quiz =
+            JSON.parse(
+                stored
+            );
+
+    } catch {
+
+        showError(
+            "Saved quiz data is corrupted."
+        );
+
+        return;
+    }
+
+
+    if (
+        !quiz ||
+        !Array.isArray(
+            quiz.questions
+        ) ||
+        !quiz.questions.length
+    ) {
+
+        showError(
+            "No generated MCQs were found."
+        );
+
+        return;
+    }
+
+
+    renderQuiz(
+        quiz
+    );
+}
+
+
+/* ============================================================
+   RENDER QUIZ
+   ============================================================ */
+
+function renderQuiz(
+    quiz
+) {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+
+    const questions =
+        quiz.questions;
+
+
+    container.innerHTML = `
+
+        <div class="quiz-title-card">
+
+            <h1>
+                🤖 AI Generated Quiz
+            </h1>
+
+            <p>
+                Test your understanding of the
+                learning material using AI-generated
+                multiple-choice questions.
+            </p>
+
+        </div>
+
+
+        <div class="quiz-header">
+
+            <div>
+
+                <small>
+                    AI GENERATED QUIZ
+                </small>
+
+                <h2>
+                    ${escapeHTML(
+                        quiz.materialName ||
+                        "Learning Material"
+                    )}
+                </h2>
+
+            </div>
+
+
+            <strong class="question-count">
+
+                ${questions.length}
+                Questions
+
+            </strong>
+
+        </div>
+
+
+        <form id="materialQuizForm">
+
+            ${questions
+                .map(
+                    function (
+                        question,
+                        index
+                    ) {
+
+                        return `
+
+                            <div
+                                class="quiz-question"
+                            >
+
+                                <h3>
+
+                                    ${index + 1}.
+                                    ${escapeHTML(
+                                        question.question
+                                    )}
+
+                                </h3>
+
+
+                                <div class="options">
+
+                                    ${question.options
+                                        .map(
+                                            function (
+                                                option,
+                                                optionIndex
+                                            ) {
+
+                                                return `
+
+                                                    <label>
+
+                                                        <input
+                                                            type="radio"
+                                                            name="question${index}"
+                                                            value="${optionIndex}"
+                                                            required
+                                                        >
+
+                                                        <span>
+
+                                                            ${escapeHTML(
+                                                                option
+                                                            )}
+
+                                                        </span>
+
+                                                    </label>
+
+                                                `;
+                                            }
+                                        )
+                                        .join("")
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        `;
+                    }
+                )
+                .join("")
+            }
+
+
+            <div class="submit-area">
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+
+                    Submit Quiz
+                    &nbsp; →
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="quizMessage"
+            ></div>
+
+        </form>
+
+    `;
+
+
+    const form =
+        document.getElementById(
+            "materialQuizForm"
+        );
+
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            calculateResult(
+                quiz,
+                questions
+            );
+
+        }
+    );
+}
+
+
+/* ============================================================
+   CALCULATE RESULT
+   ============================================================ */
+
+async function calculateResult(
+    quiz,
+    questions
+) {
+
+    let score = 0;
+
+
+    questions.forEach(
+        function (
+            question,
+            index
+        ) {
+
+            const selected =
+                document.querySelector(
+                    `input[name="question${index}"]:checked`
+                );
+
+
+            if (
+                selected &&
+                Number(
+                    selected.value
+                ) ===
+                    Number(
+                        question.answer
+                    )
+            ) {
+
+                score++;
+
+            }
+
+        }
+    );
+
+
+    const total =
+        questions.length;
+
+
+    const percentage =
+        Math.round(
+            (
+                score /
+                total
+            ) * 100
+        );
+
+
+    const result = {
+
+        employeeId:
+            typeof getLoggedInEmployeeId ===
+                "function"
+                ? getLoggedInEmployeeId()
+                : null,
+
+        topic:
+            quiz.materialName ||
+            "Learning Material Quiz",
+
+        score,
+
+        total,
+
+        percentage,
+
+        date:
+            new Date()
+                .toISOString()
+    };
+
+
+    try {
+
+        if (
+            typeof saveQuizResult ===
+                "function"
+        ) {
+
+            await saveQuizResult(
+                result
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not save quiz result:",
+            error
+        );
+
+    }
+
+
+    showResult(
+        score,
+        total,
+        percentage
+    );
+}
+
+
+/* ============================================================
+   SHOW RESULT
+   ============================================================ */
+
+function showResult(
+    score,
+    total,
+    percentage
+) {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="quiz-result">
+
+            <h1>
+                🎉 Quiz Completed
+            </h1>
+
+
+            <div class="result-score">
+                ${percentage}%
+            </div>
+
+
+            <h3>
+
+                You scored
+                ${score}
+                out of
+                ${total}
+
+            </h3>
+
+
+            <p>
+
+                ${
+                    percentage >= 80
+
+                        ? "Excellent performance! 🎯"
+
+                        : percentage >= 60
+
+                            ? "Good work. Keep improving! 👍"
+
+                            : "Keep practicing and strengthen your understanding. 📚"
+                }
+
+            </p>
+
+
+            <div>
+
+                <button
+                    class="small-btn"
+                    onclick="location.reload()"
+                >
+                    Try Again
+                </button>
+
+
+                <a
+                    href="results.html"
+                    class="small-btn"
+                >
+                    View Results
+                </a>
+
+
+                <a
+                    href="materials.html"
+                    class="small-btn"
+                >
+                    Back to Materials
+                </a>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   NO QUIZ
+   ============================================================ */
+
+function showNoQuiz() {
+
+    showError(
+        "No generated quiz is available. Go to Learning Materials and generate an AI quiz first."
+    );
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+function showError(
+    message
+) {
+
+    const container =
+        document.getElementById(
+            "quizContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="error-box">
+
+            <h2>
+                ⚠️ Quiz unavailable
+            </h2>
+
+            <p>
+                ${escapeHTML(
+                    message
+                )}
+            </p>
+
+
+            <a
+                href="materials.html"
+                class="small-btn"
+            >
+                Go to Learning Materials
+            </a>
+
+        </div>
+
+    `;
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+   ============================================================ */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ??
+        ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+</script>
+
+
+</body>
+
+</html>

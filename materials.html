@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Learning Materials | StatAI Karmayogi</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .material-generator {
+            margin-top: 25px;
+        }
+
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 14px;
+            background: white;
+            border: 1px solid #e5e7eb;
+        }
+
+        .material-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef2ff;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .material-info {
+            flex: 1;
+        }
+
+        .material-info strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .material-info small {
+            color: #6b7280;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .material-actions button {
+            border: none;
+            cursor: pointer;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .open-material {
+            background: #eef2ff;
+            color: #3730a3;
+        }
+
+        .download-material {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .generate-mcq {
+            background: #111827;
+            color: white;
+        }
+
+        .generate-mcq:hover {
+            background: #374151;
+        }
+
+        .generate-mcq:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .upload-box {
+            padding: 25px;
+            border-radius: 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+        }
+
+        .upload-box input {
+            margin: 15px 0;
+        }
+
+        .upload-info {
+            margin-top: 10px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .mcq-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .mcq-message.show {
+            display: block;
+        }
+
+        .mcq-message.success {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .mcq-message.error {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        @media (max-width: 800px) {
+            .material-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .material-actions {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <h2>StatAI</h2>
+            <span>Karmayogi</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="assessment.html">
+                Competency Assessment
+            </a>
+
+            <a href="courses.html">
+                Courses
+            </a>
+
+            <a href="materials.html" class="active">
+                Learning Materials
+            </a>
+
+            <a href="quiz.html">
+                AI Quiz
+            </a>
+
+            <a href="results.html">
+                Results
+            </a>
+
+        </nav>
+
+        <button id="logoutButton" class="logout-btn">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <header class="page-header">
+
+            <div>
+                <h1>Learning Materials</h1>
+
+                <p>
+                    Upload learning materials and generate
+                    AI-powered MCQs directly from them.
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- UPLOAD -->
+        <section class="upload-box">
+
+            <h2>Upload Learning Material</h2>
+
+            <p>
+                Supported formats: PDF, DOCX and TXT
+            </p>
+
+            <input
+                type="file"
+                id="materialFile"
+                accept=".pdf,.docx,.txt"
+            >
+
+            <div id="selectedFile">
+                No file selected
+            </div>
+
+            <div class="upload-info">
+                Maximum file size: 25 MB
+            </div>
+
+            <button
+                id="saveMaterialButton"
+                class="primary-btn"
+                style="margin-top:15px;"
+            >
+                Save Material
+            </button>
+
+            <div
+                id="materialMessage"
+                class="form-message"
+            ></div>
+
+        </section>
+
+
+        <!-- MATERIAL LIST -->
+        <section
+            class="material-generator"
+        >
+
+            <h2>My Learning Materials</h2>
+
+            <p style="color:#6b7280;">
+                Select a material and generate questions
+                from its actual contents.
+            </p>
+
+            <div id="materialList">
+
+                <div class="empty-state">
+
+                    <div style="font-size:40px;">
+                        📄
+                    </div>
+
+                    <h3>
+                        No materials uploaded
+                    </h3>
+
+                    <p>
+                        Upload your first learning material above.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

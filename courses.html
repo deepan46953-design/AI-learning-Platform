@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StatAI | Personalized Courses</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           COURSES PAGE
+        ========================================= */
+
+        .learning-hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #09284f,
+                    #006edb
+                );
+
+            border-radius: 20px;
+
+            padding: 35px;
+
+            color: white;
+
+            margin-bottom: 22px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 30px;
+
+            overflow: hidden;
+
+        }
+
+        .learning-hero-content {
+            max-width: 760px;
+        }
+
+        .learning-badge {
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,.14);
+
+            border: 1px solid rgba(255,255,255,.25);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: .6px;
+
+            margin-bottom: 14px;
+
+        }
+
+        .learning-hero h2 {
+
+            font-size: 32px;
+
+            margin: 0 0 10px;
+
+        }
+
+        .learning-hero h2 span {
+            color: #16d2f0;
+        }
+
+        .learning-hero p {
+
+            margin: 0;
+
+            line-height: 1.7;
+
+            color: rgba(255,255,255,.88);
+
+        }
+
+        .learning-hero-icon {
+
+            width: 105px;
+
+            height: 105px;
+
+            border-radius: 24px;
+
+            background: rgba(255,255,255,.12);
+
+            border: 1px solid rgba(255,255,255,.2);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 55px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* STATUS */
+
+        .course-status {
+
+            padding: 14px 18px;
+
+            margin-bottom: 25px;
+
+            background: #eef7ff;
+
+            border-left: 4px solid #087fdb;
+
+            border-radius: 10px;
+
+            color: #173d68;
+
+            font-size: 14px;
+
+        }
+
+
+        /* INFO CARDS */
+
+        .course-info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 35px;
+
+        }
+
+        .course-info-card {
+
+            background: white;
+
+            border: 1px solid #e3e9f1;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            box-shadow:
+                0 5px 20px rgba(20,50,90,.05);
+
+        }
+
+        .course-info-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 12px;
+
+            background: #edf7ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+        }
+
+        .course-info-card strong {
+
+            display: block;
+
+            color: #0d2c55;
+
+            font-size: 14px;
+
+        }
+
+        .course-info-card span {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: #718198;
+
+            font-size: 12px;
+
+        }
+
+
+        /* COURSE GRID */
+
+        .course-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 22px;
+
+        }
+
+
+        /* COURSE CARD */
+
+        .personalized-course {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            border: 1px solid #e1e8f0;
+
+            box-shadow:
+                0 7px 25px rgba(20,50,90,.06);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+
+        }
+
+        .personalized-course:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 16px 35px rgba(20,50,90,.12);
+
+        }
+
+        .course-image {
+
+            height: 185px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .course-main-icon {
+
+            font-size: 62px;
+
+        }
+
+        .course-number {
+
+            position: absolute;
+
+            top: 14px;
+
+            left: 14px;
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,.22);
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 800;
+
+        }
+
+        .course-priority {
+
+            position: absolute;
+
+            top: 14px;
+
+            right: 14px;
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+        .course-priority.high {
+            color: #c62828;
+        }
+
+        .course-priority.medium {
+            color: #ef6c00;
+        }
+
+        .course-priority.low {
+            color: #1565c0;
+        }
+
+        .course-priority.achieved {
+            color: #2e7d32;
+        }
+
+
+        /* BODY */
+
+        .course-body {
+
+            padding: 22px;
+
+        }
+
+        .course-tag {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 7px;
+
+            background: #edf6ff;
+
+            color: #0877d1;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+        .course-body h2 {
+
+            margin: 10px 0 8px;
+
+            font-size: 21px;
+
+            color: #102c55;
+
+        }
+
+        .course-body p {
+
+            color: #68788e;
+
+            line-height: 1.6;
+
+            font-size: 13px;
+
+            min-height: 63px;
+
+        }
+
+
+        /* GAP */
+
+        .course-gap-box {
+
+            background: #f7f9fc;
+
+            border: 1px solid #e3eaf2;
+
+            padding: 13px;
+
+            border-radius: 12px;
+
+            margin: 17px 0;
+
+        }
+
+        .gap-header,
+        .gap-footer {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            font-size: 11px;
+
+        }
+
+        .gap-header {
+            color: #63748b;
+        }
+
+        .gap-header strong {
+
+            color: #102c55;
+
+            font-size: 16px;
+
+        }
+
+        .course-progress {
+
+            height: 8px;
+
+            background: #dfe7f0;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 9px 0;
+
+        }
+
+        .course-progress-fill {
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #087fdb,
+                    #00bfdc
+                );
+
+            border-radius: 20px;
+
+        }
+
+        .gap-footer {
+            color: #7a899d;
+        }
+
+
+        /* META */
+
+        .course-meta {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-bottom: 17px;
+
+        }
+
+        .course-meta span {
+
+            padding: 6px 8px;
+
+            border-radius: 7px;
+
+            background: #f0f4f8;
+
+            color: #56677e;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* BUTTON */
+
+        .course-btn {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006edb,
+                    #00a7dd
+                );
+
+            color: white;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+        }
+
+        .course-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(0,110,219,.25);
+
+        }
+
+
+        /* EMPTY */
+
+        .empty-state {
+
+            grid-column: 1 / -1;
+
+            background: white;
+
+            border: 1px solid #e1e8f0;
+
+            border-radius: 17px;
+
+            padding: 55px 25px;
+
+            text-align: center;
+
+        }
+
+        .empty-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 12px;
+
+        }
+
+        .empty-state h3 {
+
+            color: #102c55;
+
+            margin: 8px 0;
+
+        }
+
+        .empty-state p {
+
+            color: #718096;
+
+            max-width: 550px;
+
+            margin: auto auto 20px;
+
+            line-height: 1.6;
+
+        }
+
+
+        @media(max-width:850px) {
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .learning-hero {
+                padding: 25px;
+            }
+
+            .learning-hero-icon {
+                display: none;
+            }
+
+            .learning-hero h2 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-box small">
+                📊
+            </div>
+
+            <div>
+
+                <strong>StatAI</strong>
+
+                <span>Karmayog</span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a
+                href="assessment.html"
+                class="nav-item"
+            >
+                🎯
+                <span>Assessment</span>
+            </a>
+
+            <a
+                href="courses.html"
+                class="nav-item active"
+            >
+                📚
+                <span>Courses</span>
+            </a>
+
+            <a
+                href="materials.html"
+                class="nav-item"
+            >
+                📄
+                <span>Materials</span>
+            </a>
+
+            <a
+                href="quiz.html"
+                class="nav-item"
+            >
+                🤖
+                <span>AI Quiz</span>
+            </a>
+
+            <a
+                href="results.html"
+                class="nav-item"
+            >
+                📈
+                <span>Results</span>
+            </a>
+
+        </nav>
+
+
+        <button
+            class="logout-btn"
+            id="logoutButton"
+        >
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="page-header">
+
+            <span>
+                PERSONALIZED LEARNING
+            </span>
+
+            <h1>
+                Recommended Courses
+            </h1>
+
+            <p>
+                Your learning path is generated from
+                your latest competency assessment.
+            </p>
+
+        </header>
+
+
+        <section class="learning-hero">
+
+            <div class="learning-hero-content">
+
+                <span class="learning-badge">
+                    AI-POWERED LEARNING PATH
+                </span>
+
+                <h2>
+                    Learn what you need,
+                    <span>when you need it.</span>
+                </h2>
+
+                <p>
+                    Courses with larger competency gaps
+                    are automatically prioritized so you
+                    can focus on the skills that need the
+                    most improvement.
+                </p>
+
+            </div>
+
+
+            <div class="learning-hero-icon">
+                🎓
+            </div>
+
+        </section>
+
+
+        <div
+            id="courseStatus"
+            class="course-status"
+        >
+            Analyzing your competency profile...
+        </div>
+
+
+        <section class="course-info-grid">
+
+            <div class="course-info-card">
+
+                <div class="course-info-icon">
+                    🎯
+                </div>
+
+                <div>
+
+                    <strong>
+                        Target Competency
+                    </strong>
+
+                    <span>
+                        70%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="course-info-card">
+
+                <div class="course-info-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <strong>
+                        Personalization
+                    </strong>
+
+                    <span>
+                        Based on latest assessment
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="course-info-card">
+
+                <div class="course-info-icon">
+                    🚀
+                </div>
+
+                <div>
+
+                    <strong>
+                        Learning Strategy
+                    </strong>
+
+                    <span>
+                        Largest competency gap first
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <h2
+            style="
+                color:#102c55;
+                margin-bottom:8px;
+            "
+        >
+            Recommended Learning Path
+        </h2>
+
+        <p
+            style="
+                color:#718096;
+                margin-top:0;
+                margin-bottom:20px;
+            "
+        >
+            Start with the first course for the highest-priority skill gap.
+        </p>
+
+
+        <section
+            id="courseContainer"
+            class="course-grid"
+        ></section>
+
+    </main>
+
+</div>
+
+
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>

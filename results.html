@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>Learning Results | StatAI Karmayogi</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root{
+
+    --blue:#2563eb;
+    --green:#16a34a;
+    --orange:#f59e0b;
+    --red:#dc2626;
+
+    --navy:#071a33;
+
+    --bg:#f4f7fb;
+
+    --text:#0f172a;
+
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:
+        Inter,
+        Segoe UI,
+        Arial,
+        sans-serif;
+
+}
+
+
+.results-page{
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:28px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.results-hero{
+
+    background:
+
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(59,130,246,.3),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #071a33,
+            #17457d
+        );
+
+    color:white;
+
+    padding:30px;
+
+    border-radius:23px;
+
+    margin-bottom:20px;
+
+}
+
+
+.results-hero h1{
+
+    margin:0 0 8px;
+
+    font-size:30px;
+
+}
+
+
+.results-hero p{
+
+    margin:0;
+
+    color:#dbeafe;
+
+}
+
+
+/* =====================================================
+   DASHBOARD GRID
+===================================================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:300px 1fr;
+
+    gap:20px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* =====================================================
+   SCORE
+===================================================== */
+
+.score-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+}
+
+
+.score-circle{
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    background:
+
+        conic-gradient(
+            #2563eb var(--angle),
+            #e5e7eb var(--angle)
+        );
+
+    position:relative;
+
+}
+
+
+.score-circle::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:12px;
+
+    background:white;
+
+    border-radius:50%;
+
+}
+
+
+.score-circle strong,
+.score-circle span{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.score-circle strong{
+
+    font-size:38px;
+
+}
+
+
+.score-circle span{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+.score-card h2{
+
+    margin:18px 0 6px;
+
+}
+
+
+.score-card p{
+
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   PANELS
+===================================================== */
+
+.panel{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:23px;
+
+}
+
+
+.panel h2{
+
+    margin:0 0 5px;
+
+    font-size:19px;
+
+}
+
+
+.panel-sub{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* =====================================================
+   COMPETENCY
+===================================================== */
+
+.competency-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:13px;
+
+}
+
+
+.competency{
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:16px;
+
+}
+
+
+.comp-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+
+}
+
+
+.comp-bar{
+
+    height:9px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+.comp-fill{
+
+    height:100%;
+
+    background:#2563eb;
+
+}
+
+
+.comp-fill.low{
+
+    background:#dc2626;
+
+}
+
+
+.comp-fill.medium{
+
+    background:#f59e0b;
+
+}
+
+
+.comp-fill.high{
+
+    background:#16a34a;
+
+}
+
+
+.comp-status{
+
+    margin-top:8px;
+
+    font-size:10px;
+
+    color:var(--muted);
+
+}
+
+
+/* =====================================================
+   LOWER GRID
+===================================================== */
+
+.lower-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:20px;
+
+}
+
+
+/* =====================================================
+   PRIORITIES
+===================================================== */
+
+.priority{
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+}
+
+
+.priority-rank{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:10px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:900;
+
+}
+
+
+.priority-main{
+
+    flex:1;
+
+}
+
+
+.priority-main strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+
+.priority-main span{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+.priority-gap{
+
+    font-weight:900;
+
+    color:#dc2626;
+
+}
+
+
+/* =====================================================
+   COURSE PROGRESS
+===================================================== */
+
+.course-row{
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:16px;
+
+    margin-bottom:11px;
+
+    transition:.2s ease;
+
+}
+
+
+.course-row:hover{
+
+    border-color:#bfdbfe;
+
+    box-shadow:
+        0 6px 18px
+        rgba(37,99,235,.06);
+
+}
+
+
+.course-row-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    margin-bottom:9px;
+
+}
+
+
+.course-percentage{
+
+    color:#2563eb;
+
+    font-size:18px;
+
+    font-weight:900;
+
+}
+
+
+.course-bar{
+
+    height:10px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+.course-fill{
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #3b82f6
+        );
+
+    border-radius:20px;
+
+    transition:
+        width .5s ease;
+
+}
+
+
+.course-fill.complete{
+
+    background:#16a34a;
+
+}
+
+
+.course-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:9px;
+
+    font-size:10px;
+
+    color:var(--muted);
+
+}
+
+
+.course-complete{
+
+    color:#16a34a;
+
+    font-weight:900;
+
+}
+
+
+.course-not-started{
+
+    color:#64748b;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history{
+
+    margin-top:20px;
+
+}
+
+
+.history-item{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    border-bottom:1px solid var(--border);
+
+    padding:14px 0;
+
+}
+
+
+.history-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.history-item strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+
+.history-item span{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+.history-score{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    color:#2563eb;
+
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:var(--muted);
+
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.action-btn{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:11px 17px;
+
+    border-radius:10px;
+
+    font-weight:800;
+
+    font-size:12px;
+
+}
+
+
+.action-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+/* =====================================================
+   COURSE SUMMARY
+===================================================== */
+
+.course-summary{
+
+    display:flex;
+
+    margin-top:12px;
+
+    border-top:1px solid #f1f5f9;
+
+    padding-top:11px;
+
+}
+
+
+.summary-item{
+
+    flex:1;
+
+    text-align:center;
+
+}
+
+
+.summary-item strong{
+
+    display:block;
+
+    font-size:16px;
+
+    color:#0f172a;
+
+}
+
+
+.summary-item span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:#64748b;
+
+    margin-top:2px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:950px){
+
+    .dashboard-grid,
+    .lower-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .results-page{
+
+        padding:15px;
+
+    }
+
+
+    .competency-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .results-hero h1{
+
+        font-size:24px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+<div class="sidebar-logo">
+
+    <div class="logo-box small">
+        S
+    </div>
+
+    <div>
+
+        <strong>StatAI</strong>
+
+        <span>Karmayogi</span>
+
+    </div>
+
+</div>
+
+
+<nav>
+
+<a
+    href="dashboard.html"
+    class="nav-item"
+>
+
+    <span>📊</span>
+
+    Dashboard
+
+</a>
+
+
+<a
+    href="assessment.html"
+    class="nav-item"
+>
+
+    <span>📝</span>
+
+    Assessment
+
+</a>
+
+
+<a
+    href="courses.html"
+    class="nav-item"
+>
+
+    <span>🎓</span>
+
+    Courses
+
+</a>
+
+
+<a
+    href="materials.html"
+    class="nav-item"
+>
+
+    <span>📚</span>
+
+    Materials
+
+</a>
+
+
+<a
+    href="results.html"
+    class="nav-item active"
+>
+
+    <span>🏆</span>
+
+    Results
+
+</a>
+
+
+</nav>
+
+
+<button
+    class="logout-btn"
+    onclick="logoutUser()"
+>
+
+    🚪 Logout
+
+</button>
+
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+
+<div class="results-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="results-hero">
+
+<div style="
+font-size:11px;
+font-weight:900;
+letter-spacing:1px;
+color:#bfdbfe;
+margin-bottom:8px;
+">
+
+LEARNING ANALYTICS
+
+</div>
+
+
+<h1 id="welcomeTitle">
+
+Your Learning Results
+
+</h1>
+
+
+<p>
+
+Track your competency growth, course
+progress and assessment performance.
+
+</p>
+
+</section>
+
+
+<!-- =====================================================
+     TOP
+===================================================== -->
+
+<div class="dashboard-grid">
+
+
+<!-- OVERALL -->
+
+<section class="score-card">
+
+
+<div
+    class="score-circle"
+    id="scoreCircle"
+>
+
+<strong id="overallScore">
+
+0%
+
+</strong>
+
+
+<span>
+
+Overall competency
+
+</span>
+
+
+</div>
+
+
+<h2 id="performanceTitle">
+
+Needs Improvement
+
+</h2>
+
+
+<p id="performanceText">
+
+Complete the baseline assessment to
+generate your competency profile.
+
+</p>
+
+
+<div style="margin-top:20px">
+
+<a
+    href="assessment.html"
+    class="action-btn"
+>
+
+Take Assessment →
+
+</a>
+
+</div>
+
+
+</section>
+
+
+<!-- COMPETENCY -->
+
+<section class="panel">
+
+
+<h2>
+
+Competency Profile
+
+</h2>
+
+
+<div class="panel-sub">
+
+Your latest measured competency across
+the five learning areas.
+
+</div>
+
+
+<div
+    class="competency-grid"
+    id="competencyGrid"
+></div>
+
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     LOWER
+===================================================== -->
+
+<div class="lower-grid">
+
+
+<!-- PRIORITIES -->
+
+<section class="panel">
+
+
+<h2>
+
+🎯 Learning Priorities
+
+</h2>
+
+
+<div class="panel-sub">
+
+The system prioritizes the largest gaps
+from the 70% target.
+
+</div>
+
+
+<div id="priorities"></div>
+
+
+</section>
+
+
+<!-- COURSE PROGRESS -->
+
+<section class="panel">
+
+
+<h2>
+
+🎓 Course Progress
+
+</h2>
+
+
+<div class="panel-sub">
+
+Progress is calculated directly from
+successfully completed assessments.
+
+</div>
+
+
+<div id="courseProgress"></div>
+
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+
+<section class="panel history">
+
+
+<h2>
+
+📈 Assessment History
+
+</h2>
+
+
+<div class="panel-sub">
+
+Your completed course assessments and
+baseline assessment results.
+
+</div>
+
+
+<div id="history"></div>
+
+
+</section>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const TARGET = 70;
+
+
+/* =====================================================
+   COURSE NAMES
+===================================================== */
+
+const COURSE_NAMES = {
+
+    statistics:
+        "Statistical Methods",
+
+    dataanalysis:
+        "Data Analysis Fundamentals",
+
+    python:
+        "Python for Data Analysis",
+
+    datavisualization:
+        "Data Visualization",
+
+    excel:
+        "Advanced Excel"
+
+};
+
+
+/* =====================================================
+   DISPLAY COMPETENCY NAMES
+===================================================== */
+
+const COMPETENCY_NAMES = {
+
+    statistics:
+        "Statistics",
+
+    dataanalysis:
+        "Data Analysis",
+
+    python:
+        "Python",
+
+    datavisualization:
+        "Data Visualization",
+
+    excel:
+        "Excel"
+
+};
+
+
+/* =====================================================
+   TOPICS
+===================================================== */
+
+const topics = [
+
+    "statistics",
+
+    "dataanalysis",
+
+    "python",
+
+    "datavisualization",
+
+    "excel"
+
+];
+
+
+/* =====================================================
+   EMPLOYEE
+===================================================== */
+
+const employee =
+    getEmployee();
+
+
+function getEmployee(){
+
+    const keys = [
+
+        "loggedInEmployee",
+
+        "currentUser",
+
+        "employee",
+
+        "employeeData"
+
+    ];
+
+
+    for(const key of keys){
+
+        const raw =
+            localStorage.getItem(
+                key
+            );
+
+
+        if(!raw)
+            continue;
+
+
+        try{
+
+            const obj =
+                JSON.parse(raw);
+
+
+            if(typeof obj === "object"){
+
+                return {
+
+                    id:String(
+                        obj.employeeId ||
+                        obj.id ||
+                        "demo-user"
+                    ),
+
+                    name:String(
+                        obj.name ||
+                        obj.employeeName ||
+                        "Learner"
+                    )
+
+                };
+
+            }
+
+        }
+        catch(error){}
+
+    }
+
+
+    return {
+
+        id:"demo-user",
+
+        name:"Learner"
+
+    };
+
+}
+
+
+/* =====================================================
+   LOAD COMPETENCY
+===================================================== */
+
+function loadCompetency(){
+
+    const raw =
+        localStorage.getItem(
+
+            `statAI_competency_${employee.id}`
+
+        );
+
+
+    if(!raw)
+        return null;
+
+
+    try{
+
+        const data =
+            JSON.parse(raw);
+
+
+        if(data.competency){
+
+            return data;
+
+        }
+
+    }
+    catch(error){}
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   GET COURSE PROGRESS
+===================================================== */
+
+function getCourseProgress(topic){
+
+    /*
+     * THIS IS THE SAME STORAGE KEY
+     * USED BY course-learning.html
+     */
+
+    const key =
+        `statAI_courseLearning_${employee.id}_${topic}`;
+
+
+    let progress = null;
+
+
+    try{
+
+        const raw =
+            localStorage.getItem(key);
+
+
+        if(raw){
+
+            progress =
+                JSON.parse(raw);
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Could not read course progress:",
+            topic,
+            error
+        );
+
+    }
+
+
+    /*
+     * If there is no progress yet,
+     * course has 6 assessments and
+     * 0 completed.
+     */
+
+    if(
+        !progress ||
+        !Array.isArray(progress.modules)
+    ){
+
+        return {
+
+            completed:0,
+
+            total:6,
+
+            remaining:6,
+
+            percentage:0,
+
+            complete:false
+
+        };
+
+    }
+
+
+    const total =
+        progress.modules.length;
+
+
+    /*
+     * ONLY assessmentPassed === true
+     * counts toward course progress.
+     */
+
+    const completed =
+        progress.modules.filter(
+            module =>
+                module &&
+                module.assessmentPassed === true
+        ).length;
+
+
+    const remaining =
+        Math.max(
+            0,
+            total - completed
+        );
+
+
+    const percentage =
+        total > 0
+
+        ? Math.round(
+            (completed / total) * 100
+        )
+
+        : 0;
+
+
+    return {
+
+        completed,
+
+        total,
+
+        remaining,
+
+        percentage,
+
+        complete:
+            percentage === 100
+
+    };
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+    document.getElementById(
+        "welcomeTitle"
+    ).textContent =
+        `${employee.name}'s Learning Results`;
+
+
+    const baseline =
+        loadCompetency();
+
+
+    if(!baseline){
+
+        document.getElementById(
+            "performanceTitle"
+        ).textContent =
+            "Assessment Required";
+
+
+        document.getElementById(
+            "performanceText"
+        ).textContent =
+            "Complete the baseline assessment to create your personalized competency profile.";
+
+
+        document.getElementById(
+            "competencyGrid"
+        ).innerHTML = `
+
+            <div
+                class="empty"
+                style="grid-column:1/-1"
+            >
+
+                No competency assessment
+                is available yet.
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "priorities"
+        ).innerHTML = `
+
+            <div class="empty">
+
+                Complete the baseline
+                assessment first.
+
+            </div>
+
+        `;
+
+
+    }
+    else{
+
+        const competency = {
+
+            ...baseline.competency
+
+        };
+
+
+        const values = [
+
+            Number(
+                competency.Statistics || 0
+            ),
+
+            Number(
+                competency["Data Analysis"] || 0
+            ),
+
+            Number(
+                competency.Python || 0
+            ),
+
+            Number(
+                competency["Data Visualization"] || 0
+            ),
+
+            Number(
+                competency.Excel || 0
+            )
+
+        ];
+
+
+        const overall =
+            Math.round(
+
+                values.reduce(
+                    (a,b) => a+b,
+                    0
+                )
+                /
+                values.length
+
+            );
+
+
+        document.getElementById(
+            "overallScore"
+        ).textContent =
+            overall + "%";
+
+
+        document.getElementById(
+            "scoreCircle"
+        ).style.setProperty(
+
+            "--angle",
+
+            overall * 3.6 + "deg"
+
+        );
+
+
+        if(overall >= 85){
+
+            document.getElementById(
+                "performanceTitle"
+            ).textContent =
+                "Excellent Performance 🏆";
+
+
+            document.getElementById(
+                "performanceText"
+            ).textContent =
+                "Your overall competency is strong. Continue advanced learning to maintain growth.";
+
+        }
+
+        else if(overall >= 70){
+
+            document.getElementById(
+                "performanceTitle"
+            ).textContent =
+                "Target Achieved ✓";
+
+
+            document.getElementById(
+                "performanceText"
+            ).textContent =
+                "You have reached the 70% target competency level.";
+
+        }
+
+        else{
+
+            document.getElementById(
+                "performanceTitle"
+            ).textContent =
+                "Learning In Progress";
+
+
+            document.getElementById(
+                "performanceText"
+            ).textContent =
+                "Continue your personalized courses to strengthen your competency.";
+
+        }
+
+
+        renderCompetencies(
+            competency
+        );
+
+
+        renderPriorities(
+            competency
+        );
+
+    }
+
+
+    /*
+     * COURSE PROGRESS IS ALWAYS RENDERED
+     */
+
+    renderCourseProgress();
+
+
+    renderHistory();
+
+}
+
+
+/* =====================================================
+   COMPETENCY
+===================================================== */
+
+function renderCompetencies(
+    competency
+){
+
+    const grid =
+        document.getElementById(
+            "competencyGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    const mapping = {
+
+        Statistics:
+            "Statistics",
+
+        "Data Analysis":
+            "Data Analysis",
+
+        Python:
+            "Python",
+
+        "Data Visualization":
+            "Data Visualization",
+
+        Excel:
+            "Excel"
+
+    };
+
+
+    Object.keys(mapping)
+    .forEach(topic => {
+
+
+        const score =
+            Number(
+                competency[topic] || 0
+            );
+
+
+        const gap =
+            Math.max(
+                0,
+                TARGET - score
+            );
+
+
+        let status =
+            "Target achieved";
+
+
+        let className =
+            "high";
+
+
+        if(score < 50){
+
+            status =
+                "High priority";
+
+            className =
+                "low";
+
+        }
+
+        else if(score < TARGET){
+
+            status =
+                "Needs improvement";
+
+            className =
+                "medium";
+
+        }
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "competency";
+
+
+        card.innerHTML = `
+
+            <div class="comp-head">
+
+                <span>
+                    ${topic}
+                </span>
+
+                <span>
+                    ${score}%
+                </span>
+
+            </div>
+
+
+            <div class="comp-bar">
+
+                <div
+                    class="comp-fill ${className}"
+                    style="width:${Math.min(score,100)}%"
+                ></div>
+
+            </div>
+
+
+            <div class="comp-status">
+
+                ${status}
+
+                ${
+                    gap > 0
+                    ? ` • Gap ${gap}%`
+                    : " • ✓"
+                }
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   PRIORITIES
+===================================================== */
+
+function renderPriorities(
+    competency
+){
+
+    const container =
+        document.getElementById(
+            "priorities"
+        );
+
+
+    const priority = [
+
+        "Statistics",
+
+        "Data Analysis",
+
+        "Python",
+
+        "Data Visualization",
+
+        "Excel"
+
+    ]
+
+    .map(topic => ({
+
+        topic,
+
+        score:
+            Number(
+                competency[topic] || 0
+            ),
+
+        gap:
+            Math.max(
+                0,
+                TARGET -
+                Number(
+                    competency[topic] || 0
+                )
+            )
+
+    }))
+
+    .sort(
+        (a,b) =>
+            b.gap - a.gap
+    );
+
+
+    if(
+        priority.every(
+            item =>
+                item.gap === 0
+        )
+    ){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🎉 All competency areas have
+                reached the 70% target.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    priority
+    .filter(
+        item =>
+            item.gap > 0
+    )
+    .forEach(
+        (item,index) => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "priority";
+
+
+            div.innerHTML = `
+
+                <div class="priority-rank">
+
+                    ${index + 1}
+
+                </div>
+
+
+                <div class="priority-main">
+
+                    <strong>
+
+                        ${item.topic}
+
+                    </strong>
+
+
+                    <span>
+
+                        Current:
+                        ${item.score}%
+
+                        • Target:
+                        ${TARGET}%
+
+                    </span>
+
+                </div>
+
+
+                <div class="priority-gap">
+
+                    -${item.gap}%
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   COURSE PROGRESS
+===================================================== */
+
+function renderCourseProgress(){
+
+    const container =
+        document.getElementById(
+            "courseProgress"
+        );
+
+
+    container.innerHTML = "";
+
+
+    topics.forEach(topic => {
+
+
+        const course =
+            getCourseProgress(
+                topic
+            );
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "course-row";
+
+
+        const fillClass =
+            course.complete
+            ? "course-fill complete"
+            : "course-fill";
+
+
+        let statusText;
+
+
+        if(course.complete){
+
+            statusText =
+                "🎉 Course completed!";
+
+        }
+
+        else if(course.completed > 0){
+
+            statusText =
+                `${course.completed} of ${course.total} assessments completed`;
+
+        }
+
+        else{
+
+            statusText =
+                "No assessments completed yet";
+
+        }
+
+
+        row.innerHTML = `
+
+            <div class="course-row-top">
+
+                <span>
+
+                    ${COURSE_NAMES[topic]}
+
+                </span>
+
+
+                <span class="course-percentage">
+
+                    ${course.percentage}%
+
+                </span>
+
+            </div>
+
+
+            <div class="course-bar">
+
+                <div
+                    class="${fillClass}"
+                    style="width:${course.percentage}%"
+                ></div>
+
+            </div>
+
+
+            <div class="course-summary">
+
+
+                <div class="summary-item">
+
+                    <strong>
+
+                        ${course.completed}
+
+                    </strong>
+
+                    <span>
+
+                        Completed
+
+                    </span>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <strong>
+
+                        ${course.total}
+
+                    </strong>
+
+                    <span>
+
+                        Assessments
+
+                    </span>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <strong>
+
+                        ${course.remaining}
+
+                    </strong>
+
+                    <span>
+
+                        Remaining
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                class="
+                    course-info
+                    ${
+                        course.complete
+                        ? "course-complete"
+                        : ""
+                    }
+                "
+            >
+
+                <span>
+
+                    ${statusText}
+
+                </span>
+
+
+                <span>
+
+                    ${course.percentage}% complete
+
+                </span>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(
+            row
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(){
+
+    const container =
+        document.getElementById(
+            "history"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const records = [];
+
+
+    /*
+     * BASELINE
+     */
+
+    const baselineRaw =
+        localStorage.getItem(
+
+            `statAI_baselineAssessment_${employee.id}`
+
+        );
+
+
+    if(baselineRaw){
+
+        try{
+
+            const data =
+                JSON.parse(
+                    baselineRaw
+                );
+
+
+            records.push({
+
+                title:
+                    "Baseline Competency Assessment",
+
+                score:
+                    Number(
+                        data.overall || 0
+                    ),
+
+                date:
+                    data.date
+
+            });
+
+        }
+        catch(error){}
+
+    }
+
+
+    /*
+     * COURSE ASSESSMENT HISTORY
+     */
+
+    const historyKey =
+        `statAI_learningAssessmentHistory_${employee.id}`;
+
+
+    const historyRaw =
+        localStorage.getItem(
+            historyKey
+        );
+
+
+    if(historyRaw){
+
+        try{
+
+            const history =
+                JSON.parse(
+                    historyRaw
+                );
+
+
+            if(Array.isArray(history)){
+
+                history.forEach(item => {
+
+
+                    const score =
+                        Number(
+                            item.score || 0
+                        );
+
+
+                    const total =
+                        Number(
+                            item.total || 3
+                        );
+
+
+                    const percentage =
+                        total > 0
+
+                        ? Math.round(
+                            score / total * 100
+                        )
+
+                        : 0;
+
+
+                    const topic =
+                        String(
+                            item.topic ||
+                            "statistics"
+                        ).toLowerCase();
+
+
+                    records.push({
+
+                        title:
+
+                            `${
+
+                                COURSE_NAMES[
+                                    topic
+                                ] ||
+                                topic
+
+                            } — ${
+
+                                item.lessonTitle ||
+                                "Module Assessment"
+
+                            }`,
+
+                        score:
+                            percentage,
+
+                        date:
+                            item.timestamp
+
+                    });
+
+                });
+
+            }
+
+        }
+        catch(error){}
+
+    }
+
+
+    /*
+     * SORT
+     */
+
+    records.sort(
+
+        (a,b) =>
+
+            new Date(
+                b.date || 0
+            )
+            -
+            new Date(
+                a.date || 0
+            )
+
+    );
+
+
+    /*
+     * EMPTY
+     */
+
+    if(records.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No assessment history available yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * DISPLAY
+     */
+
+    records.forEach(record => {
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "history-item";
+
+
+        row.innerHTML = `
+
+            <div>
+
+                <strong>
+
+                    ${escapeHTML(
+                        record.title
+                    )}
+
+                </strong>
+
+
+                <span>
+
+                    ${formatDate(
+                        record.date
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="history-score">
+
+                ${Math.round(
+                    Number(
+                        record.score || 0
+                    )
+                )}%
+
+            </div>
+
+        `;
+
+
+        container.appendChild(
+            row
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(value){
+
+    if(!value)
+        return "";
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    return date.toLocaleString(
+
+        "en-IN",
+
+        {
+
+            dateStyle:"medium",
+
+            timeStyle:"short"
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutUser(){
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+
+    localStorage.removeItem(
+        "loggedInEmployee"
+    );
+
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        render();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
